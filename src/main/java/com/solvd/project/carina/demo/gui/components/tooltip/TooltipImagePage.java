@@ -7,44 +7,40 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
-public class TooltipImageFrame extends AbstractPage {
-    private static final Logger LOGGER = LogManager.getLogger(TooltipImageFrame.class);
-    public TooltipImageFrame(WebDriver driver) {
-        super(driver);
-    }
-
+public class TooltipImagePage extends AbstractPage {
+    private static final Logger LOGGER = LogManager.getLogger(TooltipImagePage.class);
     @FindBy(xpath = "//*[@alt='%s']")
     private ExtendedWebElement images;
-
     @FindBy(xpath = "//*[@rel-title='Image Based']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
-
     @FindBy(xpath = "//*[@role='tooltip']/div[@class='ui-tooltip-content']")
     private ExtendedWebElement toolTip;
 
-    public boolean isFrameOpened(){
+    public TooltipImagePage(WebDriver driver) {
+        super(driver);
+    }
+
+    public boolean isFrameOpened() {
         return iframe.isElementPresent();
     }
 
-    public void scrollToImage(String image){
+    public void scrollToImage(String image) {
         driver.switchTo().frame(iframe.getElement());
         images.format(image).scrollTo();
         driver.switchTo().defaultContent();
     }
 
-    public void hoverImage(String image){
+    public void hoverImage(String image) {
         driver.switchTo().frame(iframe.getElement());
         images.format(image).hover();
         driver.switchTo().defaultContent();
     }
 
-    public String getActualToolTip(){
+    public String getActualToolTip() {
         driver.switchTo().frame(iframe.getElement());
-        String actualToolTip=toolTip.getText();
+        String actualToolTip = toolTip.getText();
         LOGGER.info(actualToolTip);
         driver.switchTo().defaultContent();
         return actualToolTip;
     }
-
-
 }
