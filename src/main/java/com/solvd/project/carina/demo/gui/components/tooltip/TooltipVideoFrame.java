@@ -17,18 +17,15 @@ public class TooltipVideoFrame extends AbstractPage {
     @FindBy(xpath = "//*[@rel-title='Video Based']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
 
-    @FindBy(xpath = "//*[@class='attention closable'][text()='Verify tooltip on video buttons.']")
-    private ExtendedWebElement task;
-
     @FindBy(xpath = "//*[@class='tools']//button[contains(text(),'%s')]")
     private ExtendedWebElement buttons;
 
     @FindBy(xpath = "//*[@role='tooltip']/div[@class='ui-tooltip-content']")
     private ExtendedWebElement toolTip;
 
-    @Override
-    public boolean isPageOpened() {
-        return task.isElementPresent();
+
+    public boolean isFrameOpened() {
+        return iframe.isElementPresent();
     }
 
     public void scrollToButton(String button){

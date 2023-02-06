@@ -22,12 +22,8 @@ public class RandomProgressFrame extends AbstractPage {
     @FindBy(xpath = "//*[@id='progressbar']")
     private ExtendedWebElement progressbar;
 
-    @Override
-    public boolean isPageOpened() {
-        driver.switchTo().frame(iframe.getElement());
-        boolean result = progressbar.isElementPresent();
-        driver.switchTo().defaultContent();
-        return result;
+    public boolean isFrameOpened() {
+        return iframe.isElementPresent();
     }
 
     public void clickOnRandomValueBtn(){

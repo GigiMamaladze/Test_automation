@@ -22,11 +22,8 @@ public class SliderRangeFrame extends AbstractPage {
     @FindBy(xpath = "//*[@id='slider-range']")
     private ExtendedWebElement range;
 
-    public boolean isSliderRangePresent(){
-        driver.switchTo().frame(iframe.getElement());
-        boolean result=range.isElementPresent();
-        getDriver().switchTo().defaultContent();
-        return result;
+    public boolean isFrameOpened(){
+        return iframe.isElementPresent();
     }
     public void moveSlider(int percentage, ExtendedWebElement slider){
         driver.switchTo().frame(iframe. getElement ());

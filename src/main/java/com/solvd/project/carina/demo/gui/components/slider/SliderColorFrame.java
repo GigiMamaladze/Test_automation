@@ -19,11 +19,8 @@ public class SliderColorFrame extends AbstractPage {
     @FindBy(xpath = "//*[@id='%s']")
     private ExtendedWebElement handle;
 
-    public boolean isSliderPresent(String color){
-        driver.switchTo().frame(iframe.getElement());
-        boolean result=slider.format(color).isElementPresent();
-        getDriver().switchTo().defaultContent();
-        return result;
+    public boolean isFrameOpened(){
+        return iframe.isElementPresent();
     }
 
     public void scrollToSlider(String color){

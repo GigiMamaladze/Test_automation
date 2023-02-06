@@ -20,12 +20,9 @@ public class DownloadManagerFrame extends AbstractPage {
     @FindBy(xpath = "//*[@class ='progress-label']")
     private ExtendedWebElement progressBarLabel;
 
-    @Override
-    public boolean isPageOpened() {
-        driver.switchTo().frame(iframe.getElement());
-        boolean result = downloadButton.isElementPresent();
-        driver.switchTo().defaultContent();
-        return result;
+
+    public boolean isFrameOpened() {
+       return iframe.isElementPresent();
     }
 
     public String getProgressBarLabel(){

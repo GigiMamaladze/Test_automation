@@ -22,6 +22,10 @@ public class TooltipImageFrame extends AbstractPage {
     @FindBy(xpath = "//*[@role='tooltip']/div[@class='ui-tooltip-content']")
     private ExtendedWebElement toolTip;
 
+    public boolean isFrameOpened(){
+        return iframe.isElementPresent();
+    }
+
     public void scrollToImage(String image){
         driver.switchTo().frame(iframe.getElement());
         images.format(image).scrollTo();
