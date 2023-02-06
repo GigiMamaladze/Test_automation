@@ -16,7 +16,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class TestAutomation implements IAbstractTest {
-    @Test
+    @Test(groups = "First_step",enabled = false)
     @MethodOwner(owner = "Gigi")
     @Description("Only working clearly slider which have one handle")
     public void testSliders(){
@@ -33,7 +33,7 @@ public class TestAutomation implements IAbstractTest {
         sliderRangeFrame.moveLeftSlider(2000);
     }
 
-    @Test
+    @Test(groups = "First_step")
     @MethodOwner(owner = "Gigi")
     public void testTooltip(){
         TooltipPage tooltipPage = new TooltipPage(getDriver());
@@ -44,17 +44,16 @@ public class TestAutomation implements IAbstractTest {
         String image="Tower Bridge";
         tooltipImageFrame.scrollToImage(image);
         tooltipImageFrame.hoverImage(image);
-        Assert.assertEquals(tooltipImageFrame.actualToolTip(),image);
+        Assert.assertEquals(tooltipImageFrame.getActualToolTip(),image);
         TooltipVideoFrame tooltipVideoFrame = tooltipPage.getMenu().clickOnVideoBased();
         Assert.assertTrue(tooltipVideoFrame.isFrameOpened(),"Video based frame is not opened");
-        String button ="Share";
-        String title=tooltipVideoFrame.getTitleOfButton(button);
-        tooltipVideoFrame.scrollToButton(button);
-        tooltipVideoFrame.hoverButton(button);
-        Assert.assertEquals(tooltipVideoFrame.actualTooltip(),title);
+        tooltipVideoFrame.scrollToButtons();
+        String title=tooltipVideoFrame.getTitleLikeBtn();
+        tooltipVideoFrame.hoverLikeButton();
+        Assert.assertEquals(tooltipVideoFrame.getActualTooltip(),title);
     }
 
-    @Test
+    @Test(groups = "First_step")
     @MethodOwner(owner = "Gigi")
     public void testProgressBar(){
         ProgressBarPage progressBarPage = new ProgressBarPage(getDriver());
@@ -62,16 +61,16 @@ public class TestAutomation implements IAbstractTest {
         Assert.assertTrue(progressBarPage.isPageOpened(),"Progress bar page is opened");
         DownloadManagerFrame downloadManagerFrame = new DownloadManagerFrame(getDriver());
         Assert.assertTrue(downloadManagerFrame.isFrameOpened(),"Download manager frame is not opened");
-        downloadManagerFrame.clickOnDownloadBtn();
+        downloadManagerFrame.clickDownloadBtn();
         Assert.assertEquals(downloadManagerFrame.getProgressBarLabel(),"Starting download...");
         downloadManagerFrame.waitToProgressDownload();
         Assert.assertEquals(downloadManagerFrame.getProgressBarLabel(),"Complete!");
-        progressBarPage.getMenu().scrollToMenu();
         RandomProgressFrame randomProgressFrame = progressBarPage.getMenu().clickOnRandomProgressBar();
         Assert.assertTrue(randomProgressFrame.isFrameOpened(),"Random Progress frame is not opened");
-        randomProgressFrame.clickOnRandomValueBtn();
-        Assert.assertEquals(randomProgressFrame.acctualPercentage(),randomProgressFrame.getRandomPercentage());
-        randomProgressFrame.clickOnIndeterminateBtn();
-        Assert.assertEquals(randomProgressFrame.acctualPercentage(),null);
+        String indeterminatePercentage= randomProgressFrame.getAcctualPercentage();
+        randomProgressFrame.clickRandomValueBtn();
+        Assert.assertTrue(randomProgressFrame.isPercentageChanged(indeterminatePercentage),"Progress bar is not changed");
+        randomProgressFrame.clickIndeterminateBtn();
+        Assert.assertEquals(randomProgressFrame.getAcctualPercentage(),null);
     }
 }

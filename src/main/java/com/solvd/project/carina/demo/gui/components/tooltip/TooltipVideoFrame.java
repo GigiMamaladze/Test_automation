@@ -17,9 +17,19 @@ public class TooltipVideoFrame extends AbstractPage {
     @FindBy(xpath = "//*[@rel-title='Video Based']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
 
-    @FindBy(xpath = "//*[@class='tools']//button[contains(text(),'%s')]")
-    private ExtendedWebElement buttons;
+    @FindBy(xpath = "//*[@class='tools']")
+    private ExtendedWebElement buttonsSection;
+    @FindBy(xpath = "//*[@class='tools']//button[contains(text(),'Like')]")
+    private ExtendedWebElement likeBtn;
 
+    @FindBy(xpath = "//*[@class='tools']//button[contains(text(),'I dislike this')]")
+    private ExtendedWebElement dislikeBtn;
+
+    @FindBy(xpath = "//*[@class='tools']//button[contains(text(),'Add to')]")
+    private ExtendedWebElement addToBtn;
+
+    @FindBy(xpath = "//*[@class='tools']//button[contains(text(),'Share')]")
+    private ExtendedWebElement shareBtn;
     @FindBy(xpath = "//*[@role='tooltip']/div[@class='ui-tooltip-content']")
     private ExtendedWebElement toolTip;
 
@@ -28,32 +38,59 @@ public class TooltipVideoFrame extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public void scrollToButton(String button){
+    public void scrollToButtons() {
         driver.switchTo().frame(iframe.getElement());
-        buttons.format(button).scrollTo();
+        buttonsSection.scrollTo();
         driver.switchTo().defaultContent();
     }
 
-    public void hoverButton(String button){
+    public void hoverLikeButton() {
         driver.switchTo().frame(iframe.getElement());
-        buttons.format(button).hover();
+        likeBtn.hover();
         driver.switchTo().defaultContent();
     }
 
-    public String actualTooltip(){
+    public void hoverAddToBtn() {
         driver.switchTo().frame(iframe.getElement());
-        String actualTooltip=toolTip.getText();
+        addToBtn.hover();
+        driver.switchTo().defaultContent();
+    }
+
+    public void hoverShareBtn() {
+        driver.switchTo().frame(iframe.getElement());
+        shareBtn.hover();
+        driver.switchTo().defaultContent();
+    }
+
+    public String getActualTooltip() {
+        driver.switchTo().frame(iframe.getElement());
+        String actualTooltip = toolTip.getText();
         driver.switchTo().defaultContent();
         LOGGER.info(actualTooltip);
         return actualTooltip;
     }
 
-    public String getTitleOfButton(String button){
+    public String getTitleLikeBtn() {
         driver.switchTo().frame(iframe.getElement());
-        String title=buttons.format(button).getAttribute("title");
+        String title = likeBtn.getAttribute("title");
         driver.switchTo().defaultContent();
         LOGGER.info(title);
         return title;
     }
 
+    public String getTitleAddToBtn() {
+        driver.switchTo().frame(iframe.getElement());
+        String title = addToBtn.getAttribute("title");
+        driver.switchTo().defaultContent();
+        LOGGER.info(title);
+        return title;
+    }
+
+    public String getTitleShareBtn() {
+        driver.switchTo().frame(iframe.getElement());
+        String title = shareBtn.getAttribute("title");
+        driver.switchTo().defaultContent();
+        LOGGER.info(title);
+        return title;
+    }
 }

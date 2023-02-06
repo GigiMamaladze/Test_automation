@@ -1,7 +1,7 @@
 package com.solvd.project.carina.demo.gui.pages;
 
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.solvd.project.carina.demo.gui.components.progresbar.ProgressBarMenu;
+import com.solvd.project.carina.demo.gui.components.Menu;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -11,9 +11,9 @@ public class ProgressBarPage extends AbstractPage {
     }
 
     @FindBy(xpath = "//*[@class='resp-tabs-list ']")
-    private ProgressBarMenu menu;
+    private Menu menu;
 
-    public ProgressBarMenu getMenu() {
+    public Menu getMenu() {
         return menu;
     }
 }

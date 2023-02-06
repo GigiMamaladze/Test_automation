@@ -16,9 +16,11 @@ public class RandomProgressFrame extends AbstractPage {
     @FindBy(xpath = "//*[@rel-title='Random Progress Bar']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
 
-    @FindBy(xpath = "//*[@id='%s']")
-    private ExtendedWebElement buttons;
+    @FindBy(xpath = "//*[@id='numButton']")
+    private ExtendedWebElement randomValueBtn;
 
+    @FindBy(xpath = "//*[@id='falseButton']")
+    private ExtendedWebElement indeterminateBtn;
     @FindBy(xpath = "//*[@id='progressbar']")
     private ExtendedWebElement progressbar;
 
@@ -26,12 +28,12 @@ public class RandomProgressFrame extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public void clickOnRandomValueBtn(){
+    public void clickRandomValueBtn(){
         driver.switchTo().frame(iframe.getElement());
-        buttons.format("numButton").click();
+        randomValueBtn.click();
         driver.switchTo().defaultContent();
     }
-    public String acctualPercentage(){
+    public String getAcctualPercentage(){
         driver.switchTo().frame(iframe.getElement());
         String result = progressbar.getAttribute("aria-valuenow");
         LOGGER.info(result);
@@ -39,16 +41,20 @@ public class RandomProgressFrame extends AbstractPage {
         return result;
     }
 
-    public String getRandomPercentage(){
+    public boolean isPercentageChanged(String percentage){
         driver.switchTo().frame(iframe.getElement());
-        String result=progressbar.getAttribute("aria-valuenow");
+        boolean result =false;
+        if (!progressbar.getAttribute("aria-valuenow").equals(percentage)){
+            result=true;
+        }
         driver.switchTo().defaultContent();
         return result;
     }
 
-    public void clickOnIndeterminateBtn(){
+
+    public void clickIndeterminateBtn(){
         driver.switchTo().frame(iframe.getElement());
-        buttons.format("falseButton").click();
+        indeterminateBtn.click();
         driver.switchTo().defaultContent();
     }
 }

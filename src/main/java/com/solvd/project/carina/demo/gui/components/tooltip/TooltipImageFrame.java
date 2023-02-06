@@ -38,7 +38,7 @@ public class TooltipImageFrame extends AbstractPage {
         driver.switchTo().defaultContent();
     }
 
-    public String actualToolTip(){
+    public String getActualToolTip(){
         driver.switchTo().frame(iframe.getElement());
         String actualToolTip=toolTip.getText();
         LOGGER.info(actualToolTip);
