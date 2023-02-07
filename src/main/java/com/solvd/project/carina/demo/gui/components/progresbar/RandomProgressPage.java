@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class RandomProgressPage extends AbstractPage {
+
     private static final Logger LOGGER = LogManager.getLogger(RandomProgressPage.class);
 
     @FindBy(xpath = "//*[@rel-title='Random Progress Bar']//*[@class='demo-frame lazyloaded']")

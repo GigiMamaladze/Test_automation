@@ -20,7 +20,6 @@ public class SliderRangePage extends AbstractPage {
     @FindBy(xpath = "//*[@id='slider-range']/div[@class='ui-slider-range ui-corner-all ui-widget-header']")
     private ExtendedWebElement handlesRange;
     
-
     public SliderRangePage(WebDriver driver) {
         super(driver);
     }

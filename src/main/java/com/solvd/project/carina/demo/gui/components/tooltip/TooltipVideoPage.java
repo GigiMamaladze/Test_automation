@@ -32,7 +32,6 @@ public class TooltipVideoPage extends AbstractPage {
         super(driver);
     }
 
-
     public boolean isFrameOpened() {
         return iframe.isElementPresent();
     }
