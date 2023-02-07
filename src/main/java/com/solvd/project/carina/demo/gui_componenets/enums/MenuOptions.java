@@ -4,7 +4,8 @@ public enum MenuOptions {
 
     RANDOM_PROGRESS_BAR("Random Progress Bar"),
     COLOR_PICKER("Color Picker"),
-    RANGE("Range"), IMAGE_BASED("Image Based"),
+    RANGE("Range"),
+    IMAGE_BASED("Image Based"),
     VIDEO_BASED("Video Based");
 
     private final String menuName;
@@ -16,6 +17,4 @@ public enum MenuOptions {
     public String getMenuName() {
         return menuName;
     }
-
-
 }
