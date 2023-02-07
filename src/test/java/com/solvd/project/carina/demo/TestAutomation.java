@@ -10,7 +10,7 @@ import com.solvd.project.carina.demo.gui.components.tooltip.TooltipVideoPage;
 import com.solvd.project.carina.demo.gui.pages.ProgressBarPage;
 import com.solvd.project.carina.demo.gui.pages.SliderPage;
 import com.solvd.project.carina.demo.gui.pages.TooltipPage;
-import com.solvd.project.carina.demo.gui_componenets.enums.MenuOptionsEnum;
+import com.solvd.project.carina.demo.gui_componenets.enums.MenuOptions;
 import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectMenuException;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import jdk.jfr.Description;
@@ -31,7 +31,7 @@ public class TestAutomation implements IAbstractTest {
         Assert.assertTrue(sliderColorPage.isFrameOpened(), "Color picker frame is not opened");
         sliderColorPage.moveSlider(color, 100);
         SliderRangePage sliderRangePage = (SliderRangePage) sliderPage.getSliderMenu()
-                .clickOnMenuOption(MenuOptionsEnum.RANGE);
+                .clickOnMenuOption(MenuOptions.RANGE);
         Assert.assertTrue(sliderRangePage.isFrameOpened(), "Range frame is not opened");
         String beforeMoveHandle = sliderRangePage.getHandlesRange();
         sliderRangePage.moveRightSlider(1000);
@@ -54,7 +54,7 @@ public class TestAutomation implements IAbstractTest {
         tooltipImagePage.hoverImage(image);
         Assert.assertEquals(tooltipImagePage.getActualToolTip(), image);
         TooltipVideoPage tooltipVideoPage = (TooltipVideoPage) tooltipPage.getMenu()
-                .clickOnMenuOption(MenuOptionsEnum.VIDEO_BASED);
+                .clickOnMenuOption(MenuOptions.VIDEO_BASED);
         Assert.assertTrue(tooltipVideoPage.isFrameOpened(), "Video based frame is not opened");
         tooltipVideoPage.scrollToButtons();
         tooltipVideoPage.hoverLikeButton();
@@ -74,7 +74,7 @@ public class TestAutomation implements IAbstractTest {
         downloadManagerPage.waitForProgressDownload();
         Assert.assertEquals(downloadManagerPage.getProgressBarLabel(), "Complete!");
         RandomProgressPage randomProgressPage = (RandomProgressPage) progressBarPage.getMenu()
-                .clickOnMenuOption(MenuOptionsEnum.RANDOM_PROGRESS_BAR);
+                .clickOnMenuOption(MenuOptions.RANDOM_PROGRESS_BAR);
         Assert.assertTrue(randomProgressPage.isFrameOpened(), "Random Progress frame is not opened");
         String indeterminatePercentage = randomProgressPage.getActualPercentage();
         randomProgressPage.clickRandomValueBtn();

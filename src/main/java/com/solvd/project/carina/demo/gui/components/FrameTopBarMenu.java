@@ -7,7 +7,7 @@ import com.solvd.project.carina.demo.gui.components.slider.SliderColorPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderRangePage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipImagePage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipVideoPage;
-import com.solvd.project.carina.demo.gui_componenets.enums.MenuOptionsEnum;
+import com.solvd.project.carina.demo.gui_componenets.enums.MenuOptions;
 import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectMenuException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,27 +30,27 @@ public class FrameTopBarMenu extends AbstractUIObject {
         super(driver, searchContext);
     }
 
-    public Object clickOnMenuOption(MenuOptionsEnum menuOptionsEnum) throws IncorectMenuException {
-        switch (menuOptionsEnum) {
+    public Object clickOnMenuOption(MenuOptions menuOptions) throws IncorectMenuException {
+        switch (menuOptions) {
             case COLOR_PICKER:
-                menuList.format(menuOptionsEnum.getMenuName()).scrollTo();
-                menuList.format(menuOptionsEnum.getMenuName()).click();
+                menuList.format(menuOptions.getMenuName()).scrollTo();
+                menuList.format(menuOptions.getMenuName()).click();
                 return new SliderColorPage(getDriver());
             case RANGE:
-                menuList.format(menuOptionsEnum.getMenuName()).scrollTo();
-                menuList.format(menuOptionsEnum.getMenuName()).click();
+                menuList.format(menuOptions.getMenuName()).scrollTo();
+                menuList.format(menuOptions.getMenuName()).click();
                 return new SliderRangePage(getDriver());
             case RANDOM_PROGRESS_BAR:
-                menuList.format(menuOptionsEnum.getMenuName()).scrollTo();
-                menuList.format(menuOptionsEnum.getMenuName()).click();
+                menuList.format(menuOptions.getMenuName()).scrollTo();
+                menuList.format(menuOptions.getMenuName()).click();
                 return new RandomProgressPage(getDriver());
             case VIDEO_BASED:
-                menuList.format(menuOptionsEnum.getMenuName()).scrollTo();
-                menuList.format(menuOptionsEnum.getMenuName()).click();
+                menuList.format(menuOptions.getMenuName()).scrollTo();
+                menuList.format(menuOptions.getMenuName()).click();
                 return new TooltipVideoPage(getDriver());
             case IMAGE_BASED:
-                menuList.format(menuOptionsEnum.getMenuName()).scrollTo();
-                menuList.format(menuOptionsEnum.getMenuName()).click();
+                menuList.format(menuOptions.getMenuName()).scrollTo();
+                menuList.format(menuOptions.getMenuName()).click();
                 return new TooltipImagePage(getDriver());
             default:
                     throw new IncorectMenuException("No such Menu is found");
