@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class ProgressBarPage extends AbstractPage {
+
     @FindBy(xpath = "//*[@class='resp-tabs-list ']")
     private FrameTopBarMenu frameTopBarMenu;
 

@@ -18,6 +18,7 @@ import org.openqa.selenium.support.FindBy;
 public class FrameTopBarMenu extends AbstractUIObject {
 
     private static final Logger LOGGER = LogManager.getLogger(FrameTopBarMenu.class);
+
     @FindBy(xpath = "//*[@id='%s']")
     private ExtendedWebElement menuList;
 
