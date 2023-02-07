@@ -4,7 +4,6 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 public class MultipleSelectionPage extends AbstractPage {
 
@@ -12,7 +11,7 @@ public class MultipleSelectionPage extends AbstractPage {
     private ExtendedWebElement iframe;
 
     @FindBy(xpath = "//*[@id='selectable']//*[text()='%s']")
-    private ExtendedWebElement elements;
+    private ExtendedWebElement sectionElements;
 
     public MultipleSelectionPage(WebDriver driver) {
         super(driver);
@@ -22,15 +21,15 @@ public class MultipleSelectionPage extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public void clickElement(String element) {
+    public void clickSectionElement(String sectionElement) {
         driver.switchTo().frame(iframe.getElement());
-        elements.format(element).click();
+        sectionElements.format(sectionElement).click();
         driver.switchTo().defaultContent();
     }
 
-    public String getAttribute(String element) {
+    public String getClassAttribute(String sectionElement) {
         driver.switchTo().frame(iframe.getElement());
-        String result = elements.format(element).getAttribute("class");
+        String result = sectionElements.format(sectionElement).getAttribute("class");
         driver.switchTo().defaultContent();
         return result;
     }
