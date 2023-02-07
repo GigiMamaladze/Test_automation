@@ -21,15 +21,19 @@ public class MultipleSelectionPage extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public void clickSectionElement(String sectionElement) {
+    public void clickSectionElement(String sectionTitle) {
         driver.switchTo().frame(iframe.getElement());
-        sectionElements.format(sectionElement).click();
+        sectionElements.format(sectionTitle).click();
         driver.switchTo().defaultContent();
     }
 
-    public String getClassAttribute(String sectionElement) {
+    public boolean isSectionSelected(String sectionTitle) {
         driver.switchTo().frame(iframe.getElement());
-        String result = sectionElements.format(sectionElement).getAttribute("class");
+        boolean result=false;
+        String attribute = sectionElements.format(sectionTitle).getAttribute("class");
+        if (attribute.contains("selected")){
+            result=true;
+        }
         driver.switchTo().defaultContent();
         return result;
     }

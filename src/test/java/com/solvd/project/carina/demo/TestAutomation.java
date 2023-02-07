@@ -33,13 +33,14 @@ public class TestAutomation implements IAbstractTest {
         String color = "red";
         Assert.assertTrue(sliderColorPage.isFrameOpened(), "Color picker frame is not opened");
         sliderColorPage.moveSlider(color, 100);
-        SliderRangePage sliderRangePage = (SliderRangePage) sliderPage.getMenu().clickOnMenuOption(MenuOptions.RANGE);
+        SliderRangePage sliderRangePage = (SliderRangePage) sliderPage.getMenu()
+                .clickOnMenuOption(MenuOptions.RANGE);
         Assert.assertTrue(sliderRangePage.isFrameOpened(), "Range frame is not opened");
         String beforeMoveHandle = sliderRangePage.getHandlesRange();
         sliderRangePage.moveRightSlider(1000);
         sliderRangePage.moveLeftSlider(2000);
         String afterMoveHande = sliderRangePage.getHandlesRange();
-        Assert.assertNotEquals(beforeMoveHandle, afterMoveHande);
+        Assert.assertNotEquals(beforeMoveHandle, afterMoveHande, "Slider handles is not moved");
     }
 
     @Test(groups = "First_step")
@@ -53,8 +54,9 @@ public class TestAutomation implements IAbstractTest {
         String image = "Tower Bridge";
         tooltipImagePage.scrollToImage(image);
         tooltipImagePage.hoverImage(image);
-        Assert.assertEquals(tooltipImagePage.getActualToolTip(), image);
-        TooltipVideoPage tooltipVideoPage = (TooltipVideoPage) tooltipPage.getMenu().clickOnMenuOption(MenuOptions.VIDEO_BASED);
+        Assert.assertEquals(tooltipImagePage.getActualToolTip(), image, "Tooltip is not displayed");
+        TooltipVideoPage tooltipVideoPage = (TooltipVideoPage) tooltipPage.getMenu()
+                .clickOnMenuOption(MenuOptions.VIDEO_BASED);
         Assert.assertTrue(tooltipVideoPage.isFrameOpened(), "Video based frame is not opened");
         tooltipVideoPage.scrollToButtons();
         tooltipVideoPage.hoverLikeButton();
@@ -70,16 +72,17 @@ public class TestAutomation implements IAbstractTest {
         DownloadManagerPage downloadManagerPage = new DownloadManagerPage(getDriver());
         Assert.assertTrue(downloadManagerPage.isFrameOpened(), "Download manager frame is not opened");
         downloadManagerPage.clickDownloadBtn();
-        Assert.assertEquals(downloadManagerPage.getProgressBarLabel(), "Starting download...");
+        Assert.assertEquals(downloadManagerPage.getProgressBarLabel(), "Starting download...", "Downloading is not started");
         downloadManagerPage.waitForProgressDownload();
-        Assert.assertEquals(downloadManagerPage.getProgressBarLabel(), "Complete!");
-        RandomProgressPage randomProgressPage = (RandomProgressPage) progressBarPage.getMenu().clickOnMenuOption(MenuOptions.RANDOM_PROGRESS_BAR);
+        Assert.assertEquals(downloadManagerPage.getProgressBarLabel(), "Complete!", "Downloading is not completed");
+        RandomProgressPage randomProgressPage = (RandomProgressPage) progressBarPage.getMenu()
+                .clickOnMenuOption(MenuOptions.RANDOM_PROGRESS_BAR);
         Assert.assertTrue(randomProgressPage.isFrameOpened(), "Random Progress frame is not opened");
         String indeterminatePercentage = randomProgressPage.getActualPercentage();
         randomProgressPage.clickRandomValueBtn();
-        Assert.assertNotEquals(indeterminatePercentage, randomProgressPage.getActualPercentage());
+        Assert.assertNotEquals(indeterminatePercentage, randomProgressPage.getActualPercentage(), "Percentage is not changed");
         randomProgressPage.clickIndeterminateBtn();
-        Assert.assertNull(randomProgressPage.getActualPercentage());
+        Assert.assertNull(randomProgressPage.getActualPercentage(), "Progress bar is not in indeterminate process");
     }
 
     @Test(groups = "Second_step")
@@ -91,7 +94,7 @@ public class TestAutomation implements IAbstractTest {
         int initialWindowHandles = getDriver().getWindowHandles().size();
         framesAndWindowsPage.clickClickHereBtn();
         int updatedWindowHandles = getDriver().getWindowHandles().size();
-        Assert.assertNotEquals(initialWindowHandles, updatedWindowHandles);
+        Assert.assertNotEquals(initialWindowHandles, updatedWindowHandles, "Windows or tabs is not opened");
     }
 
     @Test(groups = "Second_step")
@@ -106,11 +109,12 @@ public class TestAutomation implements IAbstractTest {
         simpleAccordionPage.scrollToSection(section);
         simpleAccordionPage.clickSection(section);
         Assert.assertTrue(simpleAccordionPage.isSectionOpened(section), "Section is not opened");
-        ResizeAccordionPage resizeAccordionPage = (ResizeAccordionPage) accordionAndTabsPage.getMenu().clickOnMenuOption(MenuOptions.RESIZE_ACCORDION);
+        ResizeAccordionPage resizeAccordionPage = (ResizeAccordionPage) accordionAndTabsPage.getMenu()
+                .clickOnMenuOption(MenuOptions.RESIZE_ACCORDION);
         Assert.assertTrue(resizeAccordionPage.isFrameOpened(), "Re-size frame is not opened");
         for (int i = 0; i < 4; i++) {
             resizeAccordionPage.clickSection(i);
-            Assert.assertTrue(resizeAccordionPage.isSectionTextDisplayed(i));
+            Assert.assertTrue(resizeAccordionPage.isSectionTextDisplayed(i), "Section text is not displayed");
         }
     }
 
@@ -125,13 +129,14 @@ public class TestAutomation implements IAbstractTest {
         categoriesPage.typeInSearchTextField("a");
         String searchedText = "anders andersson";
         categoriesPage.clickSearchedText(searchedText);
-        Assert.assertEquals(categoriesPage.getPrintedText(), searchedText);
-        ComboBoxPage comboBoxPage = (ComboBoxPage) autoCompletePage.getMenu().clickOnMenuOption(MenuOptions.COMBO_BOX);
+        Assert.assertEquals(categoriesPage.getPrintedText(), searchedText, "Searched text is not displayed");
+        ComboBoxPage comboBoxPage = (ComboBoxPage) autoCompletePage.getMenu()
+                .clickOnMenuOption(MenuOptions.COMBO_BOX);
         Assert.assertTrue(comboBoxPage.isFrameOpened(), "Combo box frame is not opened");
         String programingLanguage = "Java";
         comboBoxPage.clickShowAllItemBtn();
-        comboBoxPage.choseProgramingLanguage(programingLanguage);
-        Assert.assertEquals(comboBoxPage.getSelectedLanguage(), programingLanguage);
+        comboBoxPage.selectProgramingLanguage(programingLanguage);
+        Assert.assertEquals(comboBoxPage.getSelectedLanguage(), programingLanguage, "Chosen programming language is not displayed");
     }
 
     @Test(groups = "Second_step")
@@ -143,9 +148,7 @@ public class TestAutomation implements IAbstractTest {
         MultipleSelectionPage multipleSelectionPage = new MultipleSelectionPage(getDriver());
         Assert.assertTrue(multipleSelectionPage.isFrameOpened(), "Multiple Selection frame is not opened");
         String element = "Item 1";
-        String initialClassAttribute = multipleSelectionPage.getClassAttribute(element);
         multipleSelectionPage.clickSectionElement(element);
-        String afterClassClickAttribute = multipleSelectionPage.getClassAttribute(element);
-        Assert.assertNotEquals(initialClassAttribute, afterClassClickAttribute);
+        Assert.assertTrue(multipleSelectionPage.isSectionSelected(element), "Section element is not selected");
     }
 }

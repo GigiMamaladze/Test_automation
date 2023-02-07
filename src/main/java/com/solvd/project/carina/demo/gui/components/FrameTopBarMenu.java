@@ -31,34 +31,22 @@ public class FrameTopBarMenu extends AbstractUIObject {
     }
 
     public Object clickOnMenuOption(MenuOptions menuOptions) throws IncorectMenuException {
+        menuList.format(menuOptions.getMenuName()).scrollTo();
+        menuList.format(menuOptions.getMenuName()).click();
         switch (menuOptions) {
             case COLOR_PICKER:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new SliderColorPage(getDriver());
             case RANGE:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new SliderRangePage(getDriver());
             case RANDOM_PROGRESS_BAR:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new RandomProgressPage(getDriver());
             case VIDEO_BASED:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new TooltipVideoPage(getDriver());
             case IMAGE_BASED:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new TooltipImagePage(getDriver());
             case RESIZE_ACCORDION:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new ResizeAccordionPage(getDriver());
             case COMBO_BOX:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new ComboBoxPage(getDriver());
             default:
                     throw new IncorectMenuException("No such Menu is found");
