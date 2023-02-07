@@ -9,8 +9,10 @@ public class DownloadManagerPage extends AbstractPage {
 
     @FindBy(xpath = "//*[@rel-title='Download Manager']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
+
     @FindBy(xpath = "//*[@id='downloadButton']")
     private ExtendedWebElement downloadButton;
+
     @FindBy(xpath = "//*[@class ='progress-label']")
     private ExtendedWebElement progressBarLabel;
 

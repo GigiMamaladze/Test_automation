@@ -12,6 +12,7 @@ public class TooltipVideoPage extends AbstractPage {
 
     @FindBy(xpath = "//*[@class='tools']")
     private ExtendedWebElement buttonsSection;
+
     @FindBy(xpath = "//*[@class='tools']//button[text()='Like']")
     private ExtendedWebElement likeBtn;
 
@@ -23,6 +24,7 @@ public class TooltipVideoPage extends AbstractPage {
 
     @FindBy(xpath = "//*[@class='tools']//button[text()='Share']")
     private ExtendedWebElement shareBtn;
+
     @FindBy(xpath = "//*[@role='tooltip']/div[@class='ui-tooltip-content']")
     private ExtendedWebElement toolTip;
 

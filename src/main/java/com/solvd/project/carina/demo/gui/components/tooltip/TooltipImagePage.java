@@ -10,10 +10,13 @@ import org.openqa.selenium.support.FindBy;
 public class TooltipImagePage extends AbstractPage {
 
     private static final Logger LOGGER = LogManager.getLogger(TooltipImagePage.class);
+
     @FindBy(xpath = "//*[@alt='%s']")
     private ExtendedWebElement images;
+
     @FindBy(xpath = "//*[@rel-title='Image Based']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
+
     @FindBy(xpath = "//*[@role='tooltip']/div[@class='ui-tooltip-content']")
     private ExtendedWebElement toolTip;
 

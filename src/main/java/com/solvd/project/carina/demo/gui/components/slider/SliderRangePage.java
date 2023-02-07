@@ -10,12 +10,16 @@ public class SliderRangePage extends AbstractPage {
 
     @FindBy(xpath = "//*[@rel-title='Range']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
+
     @FindBy(xpath = "//*[@id='slider-range']/span[@class='ui-slider-handle ui-corner-all ui-state-default'][1]")
     private ExtendedWebElement leftSlider;
+
     @FindBy(xpath = "//*[@id='slider-range']/span[@class='ui-slider-handle ui-corner-all ui-state-default'][2]")
     private ExtendedWebElement rightSlider;
+
     @FindBy(xpath = "//*[@id='slider-range']/div[@class='ui-slider-range ui-corner-all ui-widget-header']")
     private ExtendedWebElement handlesRange;
+    
 
     public SliderRangePage(WebDriver driver) {
         super(driver);
