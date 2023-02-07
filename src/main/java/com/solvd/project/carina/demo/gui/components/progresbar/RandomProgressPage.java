@@ -33,21 +33,13 @@ public class RandomProgressPage extends AbstractPage {
         driver.switchTo().defaultContent();
     }
 
-    public String getAcctualPercentage() {
+    public String getActualPercentage() {
         driver.switchTo().frame(iframe.getElement());
         String result = progressbar.getAttribute("aria-valuenow");
         LOGGER.info(result);
         driver.switchTo().defaultContent();
         return result;
     }
-
-    public boolean isPercentageChanged(String percentage) {
-        driver.switchTo().frame(iframe.getElement());
-        boolean result = !progressbar.getAttribute("aria-valuenow").equals(percentage);
-        driver.switchTo().defaultContent();
-        return result;
-    }
-
 
     public void clickIndeterminateBtn() {
         driver.switchTo().frame(iframe.getElement());

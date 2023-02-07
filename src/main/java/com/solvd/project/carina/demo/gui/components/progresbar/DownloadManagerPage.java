@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class DownloadManagerPage extends AbstractPage {
+
     @FindBy(xpath = "//*[@rel-title='Download Manager']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
     @FindBy(xpath = "//*[@id='downloadButton']")

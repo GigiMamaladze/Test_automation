@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class SliderRangePage extends AbstractPage {
+
     @FindBy(xpath = "//*[@rel-title='Range']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
     @FindBy(xpath = "//*[@id='slider-range']/span[@class='ui-slider-handle ui-corner-all ui-state-default'][1]")

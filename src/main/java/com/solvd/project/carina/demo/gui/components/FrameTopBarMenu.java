@@ -8,6 +8,7 @@ import com.solvd.project.carina.demo.gui.components.slider.SliderRangePage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipImagePage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipVideoPage;
 import com.solvd.project.carina.demo.gui_componenets.enums.MenuOptionsEnum;
+import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectMenuException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.SearchContext;
@@ -15,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class FrameTopBarMenu extends AbstractUIObject {
+
     private static final Logger LOGGER = LogManager.getLogger(FrameTopBarMenu.class);
     @FindBy(xpath = "//*[@id='%s']")
     private ExtendedWebElement menuList;
@@ -27,7 +29,7 @@ public class FrameTopBarMenu extends AbstractUIObject {
         super(driver, searchContext);
     }
 
-    public Object clickOnMenu(MenuOptionsEnum menuOptionsEnum) {
+    public Object clickOnMenuOption(MenuOptionsEnum menuOptionsEnum) throws IncorectMenuException {
         switch (menuOptionsEnum) {
             case COLOR_PICKER:
                 menuList.format(menuOptionsEnum.getMenuName()).scrollTo();
@@ -50,7 +52,7 @@ public class FrameTopBarMenu extends AbstractUIObject {
                 menuList.format(menuOptionsEnum.getMenuName()).click();
                 return new TooltipImagePage(getDriver());
             default:
-                throw new RuntimeException("Error");
+                    throw new IncorectMenuException("No such Menu is found");
         }
     }
 }

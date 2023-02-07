@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class TooltipVideoPage extends AbstractPage {
+
     @FindBy(xpath = "//*[@rel-title='Video Based']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
 

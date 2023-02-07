@@ -11,6 +11,7 @@ import com.solvd.project.carina.demo.gui.pages.ProgressBarPage;
 import com.solvd.project.carina.demo.gui.pages.SliderPage;
 import com.solvd.project.carina.demo.gui.pages.TooltipPage;
 import com.solvd.project.carina.demo.gui_componenets.enums.MenuOptionsEnum;
+import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectMenuException;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import jdk.jfr.Description;
 import org.testng.Assert;
@@ -21,7 +22,7 @@ public class TestAutomation implements IAbstractTest {
     @Test(groups = "First_step")
     @MethodOwner(owner = "Gigi")
     @Description("Only working clearly slider which have one handle")
-    public void testSliders() {
+    public void testSliders() throws IncorectMenuException {
         SliderPage sliderPage = new SliderPage(getDriver());
         sliderPage.openURL("https://www.globalsqa.com/demo-site/sliders/");
         Assert.assertTrue(sliderPage.isPageOpened(), "Slider Page is not opened");
@@ -29,7 +30,8 @@ public class TestAutomation implements IAbstractTest {
         String color = "red";
         Assert.assertTrue(sliderColorPage.isFrameOpened(), "Color picker frame is not opened");
         sliderColorPage.moveSlider(color, 100);
-        SliderRangePage sliderRangePage = (SliderRangePage) sliderPage.getSliderMenu().clickOnMenu(MenuOptionsEnum.RANGE);
+        SliderRangePage sliderRangePage = (SliderRangePage) sliderPage.getSliderMenu()
+                .clickOnMenuOption(MenuOptionsEnum.RANGE);
         Assert.assertTrue(sliderRangePage.isFrameOpened(), "Range frame is not opened");
         String beforeMoveHandle = sliderRangePage.getHandlesRange();
         sliderRangePage.moveRightSlider(1000);
@@ -41,7 +43,7 @@ public class TestAutomation implements IAbstractTest {
 
     @Test(groups = "First_step")
     @MethodOwner(owner = "Gigi")
-    public void testTooltip() {
+    public void testTooltip() throws IncorectMenuException {
         TooltipPage tooltipPage = new TooltipPage(getDriver());
         tooltipPage.openURL("https://www.globalsqa.com/demo-site/tooltip/");
         Assert.assertTrue(tooltipPage.isPageOpened(), "ToolTip Page is not opened");
@@ -51,7 +53,8 @@ public class TestAutomation implements IAbstractTest {
         tooltipImagePage.scrollToImage(image);
         tooltipImagePage.hoverImage(image);
         Assert.assertEquals(tooltipImagePage.getActualToolTip(), image);
-        TooltipVideoPage tooltipVideoPage = (TooltipVideoPage) tooltipPage.getMenu().clickOnMenu(MenuOptionsEnum.VIDEO_BASED);
+        TooltipVideoPage tooltipVideoPage = (TooltipVideoPage) tooltipPage.getMenu()
+                .clickOnMenuOption(MenuOptionsEnum.VIDEO_BASED);
         Assert.assertTrue(tooltipVideoPage.isFrameOpened(), "Video based frame is not opened");
         tooltipVideoPage.scrollToButtons();
         tooltipVideoPage.hoverLikeButton();
@@ -60,7 +63,7 @@ public class TestAutomation implements IAbstractTest {
 
     @Test(groups = "First_step")
     @MethodOwner(owner = "Gigi")
-    public void testProgressBar() {
+    public void testProgressBar() throws IncorectMenuException {
         ProgressBarPage progressBarPage = new ProgressBarPage(getDriver());
         progressBarPage.openURL("https://www.globalsqa.com/demo-site/progress-bar/");
         Assert.assertTrue(progressBarPage.isPageOpened(), "Progress bar page is opened");
@@ -70,12 +73,13 @@ public class TestAutomation implements IAbstractTest {
         Assert.assertEquals(downloadManagerPage.getProgressBarLabel(), "Starting download...");
         downloadManagerPage.waitForProgressDownload();
         Assert.assertEquals(downloadManagerPage.getProgressBarLabel(), "Complete!");
-        RandomProgressPage randomProgressPage = (RandomProgressPage) progressBarPage.getMenu().clickOnMenu(MenuOptionsEnum.RANDOM_PROGRESS_BAR);
+        RandomProgressPage randomProgressPage = (RandomProgressPage) progressBarPage.getMenu()
+                .clickOnMenuOption(MenuOptionsEnum.RANDOM_PROGRESS_BAR);
         Assert.assertTrue(randomProgressPage.isFrameOpened(), "Random Progress frame is not opened");
-        String indeterminatePercentage = randomProgressPage.getAcctualPercentage();
+        String indeterminatePercentage = randomProgressPage.getActualPercentage();
         randomProgressPage.clickRandomValueBtn();
-        Assert.assertTrue(randomProgressPage.isPercentageChanged(indeterminatePercentage), "Progress bar is not changed");
+        Assert.assertNotEquals(indeterminatePercentage,randomProgressPage.getActualPercentage());
         randomProgressPage.clickIndeterminateBtn();
-        Assert.assertEquals(randomProgressPage.getAcctualPercentage(), null);
+        Assert.assertEquals(randomProgressPage.getActualPercentage(), null);
     }
 }

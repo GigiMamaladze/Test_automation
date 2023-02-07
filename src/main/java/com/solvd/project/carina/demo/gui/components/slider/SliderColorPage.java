@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 public class SliderColorPage extends AbstractPage {
+
     @FindBy(xpath = "//*[@rel-title='Color Picker']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
     @FindBy(xpath = "//*[@id='%s']/span")
