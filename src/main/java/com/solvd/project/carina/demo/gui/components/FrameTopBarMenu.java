@@ -2,6 +2,8 @@ package com.solvd.project.carina.demo.gui.components;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import com.solvd.project.carina.demo.gui.components.accordion.ResizeAccordionPage;
+import com.solvd.project.carina.demo.gui.components.autocomplete.ComboBoxPage;
 import com.solvd.project.carina.demo.gui.components.progresbar.RandomProgressPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderColorPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderRangePage;
@@ -16,8 +18,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 public class FrameTopBarMenu extends AbstractUIObject {
-
-    private static final Logger LOGGER = LogManager.getLogger(FrameTopBarMenu.class);
 
     @FindBy(xpath = "//*[@id='%s']")
     private ExtendedWebElement menuList;
@@ -52,6 +52,14 @@ public class FrameTopBarMenu extends AbstractUIObject {
                 menuList.format(menuOptions.getMenuName()).scrollTo();
                 menuList.format(menuOptions.getMenuName()).click();
                 return new TooltipImagePage(getDriver());
+            case RESIZE_ACCORDION:
+                menuList.format(menuOptions.getMenuName()).scrollTo();
+                menuList.format(menuOptions.getMenuName()).click();
+                return new ResizeAccordionPage(getDriver());
+            case COMBO_BOX:
+                menuList.format(menuOptions.getMenuName()).scrollTo();
+                menuList.format(menuOptions.getMenuName()).click();
+                return new ComboBoxPage(getDriver());
             default:
                     throw new IncorectMenuException("No such Menu is found");
         }
