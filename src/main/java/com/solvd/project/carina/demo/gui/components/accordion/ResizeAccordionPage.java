@@ -35,6 +35,13 @@ public class ResizeAccordionPage extends AbstractPage {
         return result;
     }
 
+    public int getCountSections(){
+        driver.switchTo().frame(iframe.getElement());
+        int result = sectionsTexts.size();
+        driver.switchTo().defaultContent();
+        return result;
+    }
+
     public boolean isFrameOpened() {
         return iframe.isElementPresent();
     }
