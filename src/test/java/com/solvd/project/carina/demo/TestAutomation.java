@@ -38,7 +38,6 @@ public class TestAutomation implements IAbstractTest {
         sliderRangePage.moveLeftSlider(2000);
         String afterMoveHande = sliderRangePage.getHandlesRange();
         Assert.assertNotEquals(beforeMoveHandle, afterMoveHande);
-
     }
 
     @Test(groups = "First_step")
