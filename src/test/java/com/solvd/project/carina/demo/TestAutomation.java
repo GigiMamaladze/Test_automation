@@ -112,7 +112,7 @@ public class TestAutomation implements IAbstractTest {
         ResizeAccordionPage resizeAccordionPage = (ResizeAccordionPage) accordionAndTabsPage.getMenu()
                 .clickOnMenuOption(MenuOptions.RESIZE_ACCORDION);
         Assert.assertTrue(resizeAccordionPage.isFrameOpened(), "Re-size frame is not opened");
-        for (int i = 0; i < resizeAccordionPage.getCountSections(); i++) {
+        for (int i = 0; i < resizeAccordionPage.getSectionsCount(); i++) {
             resizeAccordionPage.clickSection(i);
             Assert.assertTrue(resizeAccordionPage.isSectionTextDisplayed(i), "Section text is not displayed");
         }

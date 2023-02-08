@@ -21,7 +21,7 @@ public class FramesAndWindowsPage extends AbstractPage {
         return clickHereBtn.isElementPresent();
     }
 
-    public void clickClickHereBtn(){
+    public void clickClickHereBtn() {
         clickHereBtn.click();
     }
 }

@@ -33,12 +33,12 @@ public class SimpleAccordionPage extends AbstractPage {
         driver.switchTo().defaultContent();
     }
 
-    public boolean isSectionOpened(String section){
+    public boolean isSectionOpened(String section) {
         driver.switchTo().frame(iframe.getElement());
-        String attribute=sections.format(section).getAttribute("aria-selected");
-        boolean result =false;
-        if (attribute.equals("true")){
-            result=true;
+        String attribute = sections.format(section).getAttribute("aria-selected");
+        boolean result = false;
+        if ("true".equals(attribute)) {
+            result = true;
         }
         driver.switchTo().defaultContent();
         return result;

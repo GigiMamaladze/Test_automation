@@ -31,7 +31,7 @@ public class MultipleSelectionPage extends AbstractPage {
         driver.switchTo().frame(iframe.getElement());
         boolean result = false;
         String attribute = sectionElements.format(sectionTitle).getAttribute("class");
-        if (attribute.contains("selected")) {
+        if (attribute != null && attribute.contains("selected")) {
             result = true;
         }
         driver.switchTo().defaultContent();
