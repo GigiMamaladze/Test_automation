@@ -6,7 +6,9 @@ public enum MenuOptions {
     COLOR_PICKER("Color Picker"),
     RANGE("Range"),
     IMAGE_BASED("Image Based"),
-    VIDEO_BASED("Video Based");
+    VIDEO_BASED("Video Based"),
+    RESIZE_ACCORDION("Re-Size Accordion"),
+    COMBO_BOX("ComboBox");
 
     private final String menuName;
 

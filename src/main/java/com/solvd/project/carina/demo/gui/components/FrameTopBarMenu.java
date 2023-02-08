@@ -2,6 +2,8 @@ package com.solvd.project.carina.demo.gui.components;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
+import com.solvd.project.carina.demo.gui.components.accordion.ResizeAccordionPage;
+import com.solvd.project.carina.demo.gui.components.autocomplete.ComboBoxPage;
 import com.solvd.project.carina.demo.gui.components.progresbar.RandomProgressPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderColorPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderRangePage;
@@ -17,8 +19,6 @@ import org.openqa.selenium.support.FindBy;
 
 public class FrameTopBarMenu extends AbstractUIObject {
 
-    private static final Logger LOGGER = LogManager.getLogger(FrameTopBarMenu.class);
-
     @FindBy(xpath = "//*[@id='%s']")
     private ExtendedWebElement menuList;
 
@@ -31,27 +31,23 @@ public class FrameTopBarMenu extends AbstractUIObject {
     }
 
     public Object clickOnMenuOption(MenuOptions menuOptions) throws IncorectMenuException {
+        menuList.format(menuOptions.getMenuName()).scrollTo();
+        menuList.format(menuOptions.getMenuName()).click();
         switch (menuOptions) {
             case COLOR_PICKER:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new SliderColorPage(getDriver());
             case RANGE:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new SliderRangePage(getDriver());
             case RANDOM_PROGRESS_BAR:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new RandomProgressPage(getDriver());
             case VIDEO_BASED:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new TooltipVideoPage(getDriver());
             case IMAGE_BASED:
-                menuList.format(menuOptions.getMenuName()).scrollTo();
-                menuList.format(menuOptions.getMenuName()).click();
                 return new TooltipImagePage(getDriver());
+            case RESIZE_ACCORDION:
+                return new ResizeAccordionPage(getDriver());
+            case COMBO_BOX:
+                return new ComboBoxPage(getDriver());
             default:
                     throw new IncorectMenuException("No such Menu is found");
         }
