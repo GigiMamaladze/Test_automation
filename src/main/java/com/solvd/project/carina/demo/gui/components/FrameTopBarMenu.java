@@ -4,9 +4,12 @@ import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebEleme
 import com.qaprosoft.carina.core.gui.AbstractUIObject;
 import com.solvd.project.carina.demo.gui.components.accordion.ResizeAccordionPage;
 import com.solvd.project.carina.demo.gui.components.autocomplete.ComboBoxPage;
+import com.solvd.project.carina.demo.gui.components.datapicker.DropDownDataPage;
 import com.solvd.project.carina.demo.gui.components.progresbar.RandomProgressPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderColorPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderRangePage;
+import com.solvd.project.carina.demo.gui.components.sorting.MultipleListsPage;
+import com.solvd.project.carina.demo.gui.components.spinner.SimpleSpinnerPage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipImagePage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipVideoPage;
 import com.solvd.project.carina.demo.gui_componenets.enums.MenuOptions;
@@ -48,8 +51,14 @@ public class FrameTopBarMenu extends AbstractUIObject {
                 return new ResizeAccordionPage(getDriver());
             case COMBO_BOX:
                 return new ComboBoxPage(getDriver());
+            case SIMPLE_SPINNER:
+                return new SimpleSpinnerPage(getDriver());
+            case DROP_DOWN_DATA_PICKER:
+                return new DropDownDataPage(getDriver());
+            case MULTIPLE_LIST:
+                return new MultipleListsPage(getDriver());
             default:
-                    throw new IncorectMenuException("No such Menu is found");
+                throw new IncorectMenuException("No such Menu is found");
         }
     }
 }

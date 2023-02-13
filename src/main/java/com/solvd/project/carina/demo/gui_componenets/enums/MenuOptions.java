@@ -8,7 +8,10 @@ public enum MenuOptions {
     IMAGE_BASED("Image Based"),
     VIDEO_BASED("Video Based"),
     RESIZE_ACCORDION("Re-Size Accordion"),
-    COMBO_BOX("ComboBox");
+    COMBO_BOX("ComboBox"),
+    SIMPLE_SPINNER("Simple Spinner"),
+    DROP_DOWN_DATA_PICKER("DropDown DatePicker"),
+    MULTIPLE_LIST("Multiple Lists");
 
     private final String menuName;
 
