@@ -2,9 +2,8 @@ package com.solvd.project.carina.demo.gui.components.sorting;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.solvd.project.carina.demo.gui_componenets.enums.ItemLists;
-import com.solvd.project.carina.demo.gui_componenets.enums.Items;
-import com.solvd.project.carina.demo.gui_componenets.exceptions.UnExceptedItemType;
+import com.solvd.project.carina.demo.gui_componenets.enums.ItemList;
+import com.solvd.project.carina.demo.gui_componenets.enums.ItemType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
@@ -42,17 +41,17 @@ public class MultipleListsPage extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public void moveItemToList(int item, Items itemType, ItemLists itemList) {
+    public void moveItemToList(int item, ItemType itemType, ItemList itemList) {
         driver.switchTo().frame(iframe.getElement());
-        ExtendedWebElement itemToMove = itemType.equals(Items.WHITE) ? whiteItem.format(item) : yellowItem.format(item);
-        ExtendedWebElement destinationList = itemList.equals(ItemLists.LEFT) ? leftList : rightList;
+        ExtendedWebElement itemToMove = itemType.equals(ItemType.WHITE) ? whiteItem.format(item) : yellowItem.format(item);
+        ExtendedWebElement destinationList = itemList.equals(ItemList.LEFT) ? leftList : rightList;
         dragAndDrop(itemToMove, destinationList);
         driver.switchTo().defaultContent();
     }
 
-    public Point getItemLocation(Items itemType, int item) {
+    public Point getItemLocation(ItemType itemType, int item) {
         driver.switchTo().frame(iframe.getElement());
-        Point result = itemType.equals(Items.WHITE) ? whiteItem.format(item).getLocation() : yellowItem.format(item).getLocation();
+        Point result = itemType.equals(ItemType.WHITE) ? whiteItem.format(item).getLocation() : yellowItem.format(item).getLocation();
         driver.switchTo().defaultContent();
         return result;
     }

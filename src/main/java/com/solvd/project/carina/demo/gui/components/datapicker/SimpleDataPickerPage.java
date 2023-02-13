@@ -99,10 +99,6 @@ public class SimpleDataPickerPage extends AbstractPage {
         return result;
     }
 
-    public String formatToDate(Month month, int day, int year) {
-        return String.format("%02d/%02d/%04d", month.getMonthNumber(), day, year);
-    }
-
     public String getActualDate() {
         driver.switchTo().frame(iframe.getElement());
         String result = dataField.getAttribute("value");
@@ -110,7 +106,7 @@ public class SimpleDataPickerPage extends AbstractPage {
         return result;
     }
 
-    public boolean isCalendarOpened() {
+    public boolean isCalendarPresent() {
         driver.switchTo().frame(iframe.getElement());
         boolean result = calendar.isVisible();
         driver.switchTo().defaultContent();

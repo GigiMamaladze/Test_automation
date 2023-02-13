@@ -24,6 +24,7 @@ import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectDayExcep
 import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectMenuException;
 import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectYearException;
 import com.solvd.project.carina.demo.gui_componenets.exceptions.UnExceptedItemType;
+import com.solvd.project.carina.demo.gui_componenets.utils.DataFormatUtil;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import jdk.jfr.Description;
 import org.openqa.selenium.Point;
@@ -171,31 +172,31 @@ public class TestAutomation implements IAbstractTest {
         spinnerPage.openURL("https://www.globalsqa.com/demo-site/spinner/");
         Assert.assertTrue(spinnerPage.isPageOpened(2), "Spinner Page is not opened");
         CurrencyPage currencyPage = new CurrencyPage(getDriver());
-        Assert.assertTrue(currencyPage.isFrameOpened(), "Currencies frame is not opened");
-        currencyPage.selectCurrency(Currencies.YEN);
-        String initialAmount = currencyPage.getAmount();
+        Assert.assertTrue(currencyPage.isFrameOpened(), "Currency frame is not opened");
+        currencyPage.selectCurrency(Currency.YEN);
+        String initialAmount = currencyPage.getAmountDonate();
         currencyPage.clickUpSpinner();
-        Assert.assertNotEquals(initialAmount, currencyPage.getAmount(), "Amount is not changed");
+        Assert.assertNotEquals(initialAmount, currencyPage.getAmountDonate(), "Amount is not changed");
         currencyPage.clickDownSpinner();
-        Assert.assertEquals(initialAmount, currencyPage.getAmount(), "Amount is not changed");
+        Assert.assertEquals(initialAmount, currencyPage.getAmountDonate(), "Amount is not changed");
         SimpleSpinnerPage simpleSpinnerPage = (SimpleSpinnerPage) spinnerPage.getMenu()
                 .clickOnMenuOption(MenuOptions.SIMPLE_SPINNER);
         Assert.assertTrue(simpleSpinnerPage.isFrameOpened(), "Simple spinner frame is not opened");
-        String initialValue = simpleSpinnerPage.getValue();
+        String initialValue = simpleSpinnerPage.getSelectedValue();
         simpleSpinnerPage.clickUpSpinner();
-        Assert.assertNotEquals(initialValue, simpleSpinnerPage.getValue(), "Value is not changed");
+        Assert.assertNotEquals(initialValue, simpleSpinnerPage.getSelectedValue(), "Value is not changed");
         simpleSpinnerPage.clickUpSpinner();
-        String upgradedValue = simpleSpinnerPage.getValue();
+        String upgradedValue = simpleSpinnerPage.getSelectedValue();
         simpleSpinnerPage.clickDownSpinner();
-        Assert.assertNotEquals(upgradedValue, simpleSpinnerPage.getValue(), "Value is not changed");
+        Assert.assertNotEquals(upgradedValue, simpleSpinnerPage.getSelectedValue(), "Value is not changed");
         simpleSpinnerPage.clickToggleDisableBtn();
-        Assert.assertFalse(simpleSpinnerPage.isSpinnerAvailable(), "Value field and spinner elements is not disabled");
+        Assert.assertTrue(simpleSpinnerPage.isSpinnerDisabled(), "Value field and spinner elements is not disabled");
         simpleSpinnerPage.clickToggleWidgetBtn();
-        Assert.assertFalse(simpleSpinnerPage.isSpinnerAvailable(), "Spinner is not available");
+        Assert.assertFalse(simpleSpinnerPage.isSpinnerPresent(), "Spinner is available");
         simpleSpinnerPage.clickToggleWidgetBtn();
         simpleSpinnerPage.clickSetValue5Btn();
-        Assert.assertEquals(simpleSpinnerPage.getValue(), "5", "Value is not 5");
-        String value = simpleSpinnerPage.getValue();
+        Assert.assertEquals(simpleSpinnerPage.getSelectedValue(), "5", "Value is not 5");
+        String value = simpleSpinnerPage.getSelectedValue();
         Assert.assertEquals(simpleSpinnerPage.clickGetValueAndGetAlertText(), value, "Value is not present");
     }
 
@@ -208,7 +209,7 @@ public class TestAutomation implements IAbstractTest {
         SimpleDataPickerPage simpleDataPickerPage = new SimpleDataPickerPage(getDriver());
         Assert.assertTrue(simpleDataPickerPage.isFrameOpened(), "Simple data picker frame is not opened");
         simpleDataPickerPage.clickDataField();
-        Assert.assertTrue(simpleDataPickerPage.isCalendarOpened(), "Calendar is not opened");
+        Assert.assertTrue(simpleDataPickerPage.isCalendarPresent(), "Calendar is not opened");
         Month month = Month.DECEMBER;
         int year = 2022;
         int day = 20;
@@ -217,21 +218,21 @@ public class TestAutomation implements IAbstractTest {
         Assert.assertEquals(simpleDataPickerPage.getYearLabel(), String.valueOf(year), "Year is not selected correctly");
         Assert.assertTrue(simpleDataPickerPage.isDayPresent(day), "Day is not exist");
         simpleDataPickerPage.clickDay(day);
-        Assert.assertEquals(simpleDataPickerPage.getActualDate(), simpleDataPickerPage.formatToDate(month, day, year), "Date is not correct");
+        Assert.assertEquals(simpleDataPickerPage.getActualDate(), DataFormatUtil.formatToDate(month, day, year), "Date is not correct");
         DropDownDataPage dropDownDataPage = (DropDownDataPage) dataPickerPage.getMenu()
                 .clickOnMenuOption(MenuOptions.DROP_DOWN_DATA_PICKER);
         Assert.assertTrue(dropDownDataPage.isFrameOpened(), "Drop down Data picker frame is not opened");
         dropDownDataPage.clickDataField();
-        Assert.assertTrue(dropDownDataPage.isCalendarOpened(), "Calendar is not opened");
-        dropDownDataPage.selectMont(month);
+        Assert.assertTrue(dropDownDataPage.isCalendarPresent(), "Calendar is not opened");
+        dropDownDataPage.selectMonth(month);
         dropDownDataPage.selectYear(year);
         dropDownDataPage.clickDay(day);
-        Assert.assertEquals(dropDownDataPage.getActualDate(), dropDownDataPage.formatToDate(month, day, year), "Date is not correct");
+        Assert.assertEquals(dropDownDataPage.getActualDate(), DataFormatUtil.formatToDate(month, day, year), "Date is not correct");
     }
 
     @Test(groups = "Third_step")
     @MethodOwner(owner = "Gigi")
-    public void testSorting() throws IncorectMenuException, UnExceptedItemType {
+    public void testSorting() throws IncorectMenuException {
         SortingPage sortingPage = new SortingPage(getDriver());
         sortingPage.openURL("https://www.globalsqa.com/demo-site/sorting/");
         getDriver().manage().window().fullscreen();
@@ -247,12 +248,12 @@ public class TestAutomation implements IAbstractTest {
                 .clickOnMenuOption(MenuOptions.MULTIPLE_LIST);
         Assert.assertTrue(multipleListsPage.isFrameOpened(), "Frame is not opened");
         for (int i = 1; i <= 5; i++) {
-            Point initialWhiteItemLocation = multipleListsPage.getItemLocation(Items.WHITE, i);
-            Point initialYellowItemLocation = multipleListsPage.getItemLocation(Items.YELLOW, i);
-            multipleListsPage.moveItemToList(i, Items.WHITE, ItemLists.RIGHT);
-            Assert.assertNotEquals(initialWhiteItemLocation, multipleListsPage.getItemLocation(Items.WHITE, i), "Item is not moved");
-            multipleListsPage.moveItemToList(i, Items.YELLOW, ItemLists.LEFT);
-            Assert.assertNotEquals(initialYellowItemLocation, multipleListsPage.getItemLocation(Items.YELLOW, i), "Item is not moved");
+            Point initialWhiteItemLocation = multipleListsPage.getItemLocation(ItemType.WHITE, i);
+            Point initialYellowItemLocation = multipleListsPage.getItemLocation(ItemType.YELLOW, i);
+            multipleListsPage.moveItemToList(i, ItemType.WHITE, ItemList.RIGHT);
+            Assert.assertNotEquals(initialWhiteItemLocation, multipleListsPage.getItemLocation(ItemType.WHITE, i), "Item is not moved");
+            multipleListsPage.moveItemToList(i, ItemType.YELLOW, ItemList.LEFT);
+            Assert.assertNotEquals(initialYellowItemLocation, multipleListsPage.getItemLocation(ItemType.YELLOW, i), "Item is not moved");
         }
     }
 }

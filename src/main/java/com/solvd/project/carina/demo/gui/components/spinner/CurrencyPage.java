@@ -2,7 +2,7 @@ package com.solvd.project.carina.demo.gui.components.spinner;
 
 import com.qaprosoft.carina.core.foundation.webdriver.decorator.ExtendedWebElement;
 import com.qaprosoft.carina.core.gui.AbstractPage;
-import com.solvd.project.carina.demo.gui_componenets.enums.Currencies;
+import com.solvd.project.carina.demo.gui_componenets.enums.Currency;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
@@ -11,10 +11,10 @@ public class CurrencyPage extends AbstractPage {
     @FindBy(xpath = "//*[@rel-title='Currency']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
 
-    @FindBy(xpath = "//*[@class='ui-button ui-widget ui-spinner-button ui-spinner-up ui-corner-tr ui-button-icon-only']")
+    @FindBy(xpath = "//a[contains(@class,'ui-spinner-up')]")
     private ExtendedWebElement spinnerUpBtn;
 
-    @FindBy(xpath = "//*[@class='ui-button ui-widget ui-spinner-button ui-spinner-down ui-corner-br ui-button-icon-only']")
+    @FindBy(xpath = "//a[contains(@class,'ui-spinner-down')]")
     private ExtendedWebElement spinnerDownBtn;
 
     @FindBy(xpath = "//*[text()='%s']")
@@ -44,13 +44,13 @@ public class CurrencyPage extends AbstractPage {
         driver.switchTo().defaultContent();
     }
 
-    public void selectCurrency(Currencies currencies) {
+    public void selectCurrency(Currency currency) {
         driver.switchTo().frame(iframe.getElement());
-        currencyList.format(currencies.getCurrency()).click();
+        currencyList.format(currency.getCurrency()).click();
         driver.switchTo().defaultContent();
     }
 
-    public String getAmount() {
+    public String getAmountDonate() {
         driver.switchTo().frame(iframe.getElement());
         String result = amount.getAttribute("value");
         driver.switchTo().defaultContent();

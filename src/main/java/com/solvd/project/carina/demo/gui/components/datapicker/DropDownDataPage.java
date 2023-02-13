@@ -36,7 +36,7 @@ public class DropDownDataPage extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public boolean isCalendarOpened() {
+    public boolean isCalendarPresent() {
         driver.switchTo().frame(iframe.getElement());
         boolean result = calendar.isVisible();
         driver.switchTo().defaultContent();
@@ -49,7 +49,7 @@ public class DropDownDataPage extends AbstractPage {
         driver.switchTo().defaultContent();
     }
 
-    public void selectMont(Month month) {
+    public void selectMonth(Month month) {
         driver.switchTo().frame(iframe.getElement());
         monthSelector.select(month.getMonthAbbreviate());
         driver.switchTo().defaultContent();
@@ -73,10 +73,6 @@ public class DropDownDataPage extends AbstractPage {
             days.format(day).click();
             driver.switchTo().defaultContent();
         }
-    }
-
-    public String formatToDate(Month month, int day, int year) {
-        return String.format("%02d/%02d/%04d", month.getMonthNumber(), day, year);
     }
 
     public String getActualDate() {

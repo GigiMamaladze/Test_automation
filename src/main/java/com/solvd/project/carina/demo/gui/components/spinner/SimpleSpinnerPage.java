@@ -19,10 +19,10 @@ public class SimpleSpinnerPage extends AbstractPage {
     @FindBy(xpath = "//*[@id='spinner']")
     private ExtendedWebElement valueField;
 
-    @FindBy(xpath = "//*[@class='ui-button ui-widget ui-spinner-button ui-spinner-up ui-corner-tr ui-button-icon-only']")
+    @FindBy(xpath = "//a[contains(@class,'ui-spinner-up')]")
     private ExtendedWebElement spinnerUpBtn;
 
-    @FindBy(xpath = "//*[@class='ui-button ui-widget ui-spinner-button ui-spinner-down ui-corner-br ui-button-icon-only']")
+    @FindBy(xpath = "//a[contains(@class,'ui-spinner-down')]")
     private ExtendedWebElement spinnerDownBtn;
 
     @FindBy(xpath = "//*[@id='disable']")
@@ -53,16 +53,23 @@ public class SimpleSpinnerPage extends AbstractPage {
         driver.switchTo().defaultContent();
     }
 
-    public String getValue() {
+    public String getSelectedValue() {
         driver.switchTo().frame(iframe.getElement());
         String result = valueField.getAttribute("aria-valuenow");
         driver.switchTo().defaultContent();
         return result;
     }
 
-    public boolean isSpinnerAvailable() {
+    public boolean isSpinnerDisabled() {
         driver.switchTo().frame(iframe.getElement());
-        boolean result = spinnerUpBtn.isElementPresent(4);
+        boolean result = spinnerUpBtn.getAttribute("class").contains("disable");
+        driver.switchTo().defaultContent();
+        return result;
+    }
+
+    public boolean isSpinnerPresent() {
+        driver.switchTo().frame(iframe.getElement());
+        boolean result = spinnerUpBtn.isElementPresent(3);
         driver.switchTo().defaultContent();
         return result;
     }

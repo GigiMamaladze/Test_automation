@@ -1,6 +1,6 @@
 package com.solvd.project.carina.demo.gui_componenets.enums;
 
-public enum Currencies {
+public enum Currency {
 
     US("US $"),
     EUR("EUR €"),
@@ -8,7 +8,7 @@ public enum Currencies {
 
     private final String currency;
 
-    Currencies(String currency) {
+    Currency(String currency) {
         this.currency = currency;
     }
 
