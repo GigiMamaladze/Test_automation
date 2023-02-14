@@ -11,10 +11,10 @@ public class CurrencyPage extends AbstractPage {
     @FindBy(xpath = "//*[@rel-title='Currency']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
 
-    @FindBy(xpath = "//a[contains(@class,'ui-spinner-up')]")
+    @FindBy(css = "a.ui-spinner-up" )
     private ExtendedWebElement spinnerUpBtn;
 
-    @FindBy(xpath = "//a[contains(@class,'ui-spinner-down')]")
+    @FindBy(css = "a.ui-spinner-down")
     private ExtendedWebElement spinnerDownBtn;
 
     @FindBy(xpath = "//*[text()='%s']")

@@ -19,10 +19,10 @@ public class SimpleSpinnerPage extends AbstractPage {
     @FindBy(xpath = "//*[@id='spinner']")
     private ExtendedWebElement valueField;
 
-    @FindBy(xpath = "//a[contains(@class,'ui-spinner-up')]")
+    @FindBy(css = "a.ui-spinner-up")
     private ExtendedWebElement spinnerUpBtn;
 
-    @FindBy(xpath = "//a[contains(@class,'ui-spinner-down')]")
+    @FindBy(css = "a.ui-spinner-down")
     private ExtendedWebElement spinnerDownBtn;
 
     @FindBy(xpath = "//*[@id='disable']")
