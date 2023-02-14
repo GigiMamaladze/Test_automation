@@ -24,10 +24,10 @@ public class SimpleDataPickerPage extends AbstractPage {
     @FindBy(xpath = "//*[@data-handler='prev']")
     private ExtendedWebElement previousArrowBtn;
 
-    @FindBy(xpath = "//*[@class='ui-datepicker-month']")
+    @FindBy(css = "span.ui-datepicker-month")
     private ExtendedWebElement monthLabel;
 
-    @FindBy(xpath = "//*[@class='ui-datepicker-year']")
+    @FindBy(css = "span.ui-datepicker-year")
     private ExtendedWebElement yearLabel;
 
     @FindBy(xpath = "//*[@class='ui-state-default'][text()='%s']")

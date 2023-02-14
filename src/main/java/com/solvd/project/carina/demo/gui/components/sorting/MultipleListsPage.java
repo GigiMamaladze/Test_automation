@@ -27,12 +27,6 @@ public class MultipleListsPage extends AbstractPage {
     @FindBy(xpath = "//*[@id = 'sortable2']")
     private ExtendedWebElement rightList;
 
-    @FindBy(xpath = "//li[@class ='ui-state-default ui-sortable-handle']")
-    private List<ExtendedWebElement> countWhiteItems;
-
-    @FindBy(xpath = "//li[@class ='ui-state-highlight ui-sortable-handle']")
-    private List<ExtendedWebElement> countYellowItems;
-
     public MultipleListsPage(WebDriver driver) {
         super(driver);
     }

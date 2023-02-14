@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class SpinnerPage extends AbstractPage {
 
-    @FindBy(xpath = "//*[@class='resp-tabs-list ']")
+    @FindBy(css = "ul.resp-tabs-list ")
     private FrameTopBarMenu menu;
 
     public SpinnerPage(WebDriver driver) {

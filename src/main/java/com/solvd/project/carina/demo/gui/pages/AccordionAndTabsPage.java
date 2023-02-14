@@ -7,14 +7,14 @@ import org.openqa.selenium.support.FindBy;
 
 public class AccordionAndTabsPage extends AbstractPage {
 
+    @FindBy(css = "ul.resp-tabs-list ")
+    private FrameTopBarMenu menu;
+
     public AccordionAndTabsPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@class='resp-tabs-list ']")
-    private FrameTopBarMenu frameTopBarMenu;
-
     public FrameTopBarMenu getMenu() {
-        return frameTopBarMenu;
+        return menu;
     }
 }
