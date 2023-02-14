@@ -21,6 +21,13 @@ public class SimpleAccordionPage extends AbstractPage {
         return iframe.isElementPresent();
     }
 
+    public boolean isSectionPresent(String section) {
+        driver.switchTo().frame(iframe.getElement());
+        boolean result = sections.format(section).isElementPresent(3);
+        driver.switchTo().defaultContent();
+        return result;
+    }
+
     public void scrollToSection(String section) {
         driver.switchTo().frame(iframe.getElement());
         sections.format(section).scrollTo();
@@ -36,10 +43,7 @@ public class SimpleAccordionPage extends AbstractPage {
     public boolean isSectionOpened(String section) {
         driver.switchTo().frame(iframe.getElement());
         String attribute = sections.format(section).getAttribute("aria-selected");
-        boolean result = false;
-        if ("true".equals(attribute)) {
-            result = true;
-        }
+        boolean result = "true".equals(attribute);
         driver.switchTo().defaultContent();
         return result;
     }

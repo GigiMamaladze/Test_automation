@@ -5,18 +5,29 @@ import com.solvd.project.carina.demo.gui.components.accordion.ResizeAccordionPag
 import com.solvd.project.carina.demo.gui.components.accordion.SimpleAccordionPage;
 import com.solvd.project.carina.demo.gui.components.autocomplete.CategoriesPage;
 import com.solvd.project.carina.demo.gui.components.autocomplete.ComboBoxPage;
+import com.solvd.project.carina.demo.gui.components.datapicker.DropDownDataPage;
+import com.solvd.project.carina.demo.gui.components.datapicker.SimpleDataPickerPage;
 import com.solvd.project.carina.demo.gui.components.progresbar.DownloadManagerPage;
 import com.solvd.project.carina.demo.gui.components.progresbar.RandomProgressPage;
 import com.solvd.project.carina.demo.gui.components.select.MultipleSelectionPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderColorPage;
 import com.solvd.project.carina.demo.gui.components.slider.SliderRangePage;
+import com.solvd.project.carina.demo.gui.components.sorting.MultipleListsPage;
+import com.solvd.project.carina.demo.gui.components.sorting.PortletsPage;
+import com.solvd.project.carina.demo.gui.components.spinner.CurrencyPage;
+import com.solvd.project.carina.demo.gui.components.spinner.SimpleSpinnerPage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipImagePage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipVideoPage;
 import com.solvd.project.carina.demo.gui.pages.*;
-import com.solvd.project.carina.demo.gui_componenets.enums.MenuOptions;
+import com.solvd.project.carina.demo.gui_componenets.enums.*;
+import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectDayException;
 import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectMenuException;
+import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectYearException;
+import com.solvd.project.carina.demo.gui_componenets.exceptions.UnExceptedItemType;
+import com.solvd.project.carina.demo.gui_componenets.utils.DataFormatUtil;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import jdk.jfr.Description;
+import org.openqa.selenium.Point;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -28,7 +39,7 @@ public class TestAutomation implements IAbstractTest {
     public void testSliders() throws IncorectMenuException {
         SliderPage sliderPage = new SliderPage(getDriver());
         sliderPage.openURL("https://www.globalsqa.com/demo-site/sliders/");
-        Assert.assertTrue(sliderPage.isPageOpened(), "Slider Page is not opened");
+        Assert.assertTrue(sliderPage.isPageOpened(2), "Slider Page is not opened");
         SliderColorPage sliderColorPage = new SliderColorPage(getDriver());
         String color = "red";
         Assert.assertTrue(sliderColorPage.isFrameOpened(), "Color picker frame is not opened");
@@ -48,7 +59,8 @@ public class TestAutomation implements IAbstractTest {
     public void testTooltip() throws IncorectMenuException {
         TooltipPage tooltipPage = new TooltipPage(getDriver());
         tooltipPage.openURL("https://www.globalsqa.com/demo-site/tooltip/");
-        Assert.assertTrue(tooltipPage.isPageOpened(), "ToolTip Page is not opened");
+        getDriver().manage().window().fullscreen();
+        Assert.assertTrue(tooltipPage.isPageOpened(2), "ToolTip Page is not opened");
         TooltipImagePage tooltipImagePage = new TooltipImagePage(getDriver());
         Assert.assertTrue(tooltipImagePage.isFrameOpened(), "Image frame is not opened");
         String image = "Tower Bridge";
@@ -68,7 +80,7 @@ public class TestAutomation implements IAbstractTest {
     public void testProgressBar() throws IncorectMenuException {
         ProgressBarPage progressBarPage = new ProgressBarPage(getDriver());
         progressBarPage.openURL("https://www.globalsqa.com/demo-site/progress-bar/");
-        Assert.assertTrue(progressBarPage.isPageOpened(), "Progress bar page is opened");
+        Assert.assertTrue(progressBarPage.isPageOpened(2), "Progress bar page is opened");
         DownloadManagerPage downloadManagerPage = new DownloadManagerPage(getDriver());
         Assert.assertTrue(downloadManagerPage.isFrameOpened(), "Download manager frame is not opened");
         downloadManagerPage.clickDownloadBtn();
@@ -90,7 +102,7 @@ public class TestAutomation implements IAbstractTest {
     public void testFramesAndWindows() {
         FramesAndWindowsPage framesAndWindowsPage = new FramesAndWindowsPage(getDriver());
         framesAndWindowsPage.openURL("https://www.globalsqa.com/demo-site/frames-and-windows/");
-        Assert.assertTrue(framesAndWindowsPage.isPageOpened(), "Frames and windows page is not opened");
+        Assert.assertTrue(framesAndWindowsPage.isPageOpened(2), "Frames and windows page is not opened");
         int initialWindowHandles = getDriver().getWindowHandles().size();
         framesAndWindowsPage.clickClickHereBtn();
         int updatedWindowHandles = getDriver().getWindowHandles().size();
@@ -102,10 +114,11 @@ public class TestAutomation implements IAbstractTest {
     public void testAccordion() throws IncorectMenuException {
         AccordionAndTabsPage accordionAndTabsPage = new AccordionAndTabsPage(getDriver());
         accordionAndTabsPage.openURL("https://www.globalsqa.com/demo-site/accordion-and-tabs/");
-        Assert.assertTrue(accordionAndTabsPage.isPageOpened(), "Accordion page is opened");
+        Assert.assertTrue(accordionAndTabsPage.isPageOpened(2), "Accordion page is opened");
         SimpleAccordionPage simpleAccordionPage = new SimpleAccordionPage(getDriver());
         Assert.assertTrue(simpleAccordionPage.isFrameOpened(), "Simple frame is opened");
         String section = "Section 2";
+        Assert.assertTrue(simpleAccordionPage.isSectionPresent(section), "Section is not present");
         simpleAccordionPage.scrollToSection(section);
         simpleAccordionPage.clickSection(section);
         Assert.assertTrue(simpleAccordionPage.isSectionOpened(section), "Section is not opened");
@@ -123,7 +136,7 @@ public class TestAutomation implements IAbstractTest {
     public void testAutoComplete() throws IncorectMenuException {
         AutoCompletePage autoCompletePage = new AutoCompletePage(getDriver());
         autoCompletePage.openURL("https://www.globalsqa.com/demo-site/auto-complete/");
-        Assert.assertTrue(autoCompletePage.isPageOpened(), "Autocomplete page is opened");
+        Assert.assertTrue(autoCompletePage.isPageOpened(2), "Autocomplete page is opened");
         CategoriesPage categoriesPage = new CategoriesPage(getDriver());
         Assert.assertTrue(categoriesPage.isFrameOpened(), "Categories Frame is not opened");
         categoriesPage.typeInSearchTextField("a");
@@ -144,11 +157,103 @@ public class TestAutomation implements IAbstractTest {
     public void testSelectElements() throws IncorectMenuException {
         SelectElementsPage selectElementsPage = new SelectElementsPage(getDriver());
         selectElementsPage.openURL("https://www.globalsqa.com/demo-site/select-elements/");
-        Assert.assertTrue(selectElementsPage.isPageOpened(), "Select Element frame is not opened");
+        Assert.assertTrue(selectElementsPage.isPageOpened(2), "Select Element frame is not opened");
         MultipleSelectionPage multipleSelectionPage = new MultipleSelectionPage(getDriver());
         Assert.assertTrue(multipleSelectionPage.isFrameOpened(), "Multiple Selection frame is not opened");
         String element = "Item 1";
         multipleSelectionPage.clickSectionElement(element);
         Assert.assertTrue(multipleSelectionPage.isSectionSelected(element), "Section element is not selected");
+    }
+
+    @Test(groups = "Third_step")
+    @MethodOwner(owner = "Gigi")
+    private void testSpinner() throws IncorectMenuException {
+        SpinnerPage spinnerPage = new SpinnerPage(getDriver());
+        spinnerPage.openURL("https://www.globalsqa.com/demo-site/spinner/");
+        Assert.assertTrue(spinnerPage.isPageOpened(2), "Spinner Page is not opened");
+        CurrencyPage currencyPage = new CurrencyPage(getDriver());
+        Assert.assertTrue(currencyPage.isFrameOpened(), "Currency frame is not opened");
+        currencyPage.selectCurrency(Currency.YEN);
+        String initialAmount = currencyPage.getAmountDonate();
+        currencyPage.clickUpSpinner();
+        Assert.assertNotEquals(initialAmount, currencyPage.getAmountDonate(), "Amount is not changed");
+        currencyPage.clickDownSpinner();
+        Assert.assertEquals(initialAmount, currencyPage.getAmountDonate(), "Amount is not changed");
+        SimpleSpinnerPage simpleSpinnerPage = (SimpleSpinnerPage) spinnerPage.getMenu()
+                .clickOnMenuOption(MenuOptions.SIMPLE_SPINNER);
+        Assert.assertTrue(simpleSpinnerPage.isFrameOpened(), "Simple spinner frame is not opened");
+        String initialValue = simpleSpinnerPage.getSelectedValue();
+        simpleSpinnerPage.clickUpSpinner();
+        Assert.assertNotEquals(initialValue, simpleSpinnerPage.getSelectedValue(), "Value is not changed");
+        simpleSpinnerPage.clickUpSpinner();
+        String upgradedValue = simpleSpinnerPage.getSelectedValue();
+        simpleSpinnerPage.clickDownSpinner();
+        Assert.assertNotEquals(upgradedValue, simpleSpinnerPage.getSelectedValue(), "Value is not changed");
+        simpleSpinnerPage.clickToggleDisableBtn();
+        Assert.assertTrue(simpleSpinnerPage.isSpinnerDisabled(), "Value field and spinner elements is not disabled");
+        simpleSpinnerPage.clickToggleWidgetBtn();
+        Assert.assertFalse(simpleSpinnerPage.isSpinnerPresent(), "Spinner is available");
+        simpleSpinnerPage.clickToggleWidgetBtn();
+        simpleSpinnerPage.clickSetValue5Btn();
+        Assert.assertEquals(simpleSpinnerPage.getSelectedValue(), "5", "Value is not 5");
+        String value = simpleSpinnerPage.getSelectedValue();
+        Assert.assertEquals(simpleSpinnerPage.clickGetValueAndGetAlertText(), value, "Value is not present");
+    }
+
+    @Test(groups = "Third_step")
+    @MethodOwner(owner = "Gigi")
+    public void testDataPicker() throws IncorectYearException, IncorectMenuException, IncorectDayException {
+        DataPickerPage dataPickerPage = new DataPickerPage(getDriver());
+        dataPickerPage.openURL("https://www.globalsqa.com/demo-site/datepicker/");
+        Assert.assertTrue(dataPickerPage.isPageOpened(2), "Data Picker page is not opened");
+        SimpleDataPickerPage simpleDataPickerPage = new SimpleDataPickerPage(getDriver());
+        Assert.assertTrue(simpleDataPickerPage.isFrameOpened(), "Simple data picker frame is not opened");
+        simpleDataPickerPage.clickDataField();
+        Assert.assertTrue(simpleDataPickerPage.isCalendarPresent(), "Calendar is not opened");
+        Month month = Month.DECEMBER;
+        int year = 2022;
+        int day = 20;
+        simpleDataPickerPage.choseMonthAndYear(month, year);
+        Assert.assertEquals(simpleDataPickerPage.getMonthLabel(), month.toString(), "Month is not selected correctly");
+        Assert.assertEquals(simpleDataPickerPage.getYearLabel(), String.valueOf(year), "Year is not selected correctly");
+        Assert.assertTrue(simpleDataPickerPage.isDayPresent(day), "Day is not exist");
+        simpleDataPickerPage.clickDay(day);
+        Assert.assertEquals(simpleDataPickerPage.getActualDate(), DataFormatUtil.formatToDate(month, day, year), "Date is not correct");
+        DropDownDataPage dropDownDataPage = (DropDownDataPage) dataPickerPage.getMenu()
+                .clickOnMenuOption(MenuOptions.DROP_DOWN_DATA_PICKER);
+        Assert.assertTrue(dropDownDataPage.isFrameOpened(), "Drop down Data picker frame is not opened");
+        dropDownDataPage.clickDataField();
+        Assert.assertTrue(dropDownDataPage.isCalendarPresent(), "Calendar is not opened");
+        dropDownDataPage.selectMonth(month);
+        dropDownDataPage.selectYear(year);
+        dropDownDataPage.clickDay(day);
+        Assert.assertEquals(dropDownDataPage.getActualDate(), DataFormatUtil.formatToDate(month, day, year), "Date is not correct");
+    }
+
+    @Test(groups = "Third_step")
+    @MethodOwner(owner = "Gigi")
+    public void testSorting() throws IncorectMenuException {
+        SortingPage sortingPage = new SortingPage(getDriver());
+        sortingPage.openURL("https://www.globalsqa.com/demo-site/sorting/");
+        getDriver().manage().window().fullscreen();
+        Assert.assertTrue(sortingPage.isPageOpened(2), "Sorting page is not opened");
+        PortletsPage portletsPage = new PortletsPage(getDriver());
+        Assert.assertTrue(portletsPage.isFrameOpened(), "Portlets frame is not opened");
+        String from = "Shopping";
+        String to = "Feeds";
+        Point target = portletsPage.getLocationPortlet(to);
+        portletsPage.movePortlets(from, to);
+        Assert.assertEquals(portletsPage.getLocationPortlet(from), target, "Portlet is not moved correctly");
+        MultipleListsPage multipleListsPage = (MultipleListsPage) sortingPage.getMenu()
+                .clickOnMenuOption(MenuOptions.MULTIPLE_LIST);
+        Assert.assertTrue(multipleListsPage.isFrameOpened(), "Frame is not opened");
+        for (int i = 1; i <= 5; i++) {
+            Point initialWhiteItemLocation = multipleListsPage.getItemLocation(ItemType.WHITE, i);
+            Point initialYellowItemLocation = multipleListsPage.getItemLocation(ItemType.YELLOW, i);
+            multipleListsPage.moveItemToList(i, ItemType.WHITE, ItemList.RIGHT);
+            Assert.assertNotEquals(initialWhiteItemLocation, multipleListsPage.getItemLocation(ItemType.WHITE, i), "Item is not moved");
+            multipleListsPage.moveItemToList(i, ItemType.YELLOW, ItemList.LEFT);
+            Assert.assertNotEquals(initialYellowItemLocation, multipleListsPage.getItemLocation(ItemType.YELLOW, i), "Item is not moved");
+        }
     }
 }
