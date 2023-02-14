@@ -7,16 +7,11 @@ import org.openqa.selenium.support.FindBy;
 
 public class SliderPage extends AbstractPage {
 
-    @FindBy(xpath = "//*[@class='resp-tabs-list ']")
+    @FindBy(css = "ul.resp-tabs-list ")
     private FrameTopBarMenu menu;
 
     public SliderPage(WebDriver driver) {
         super(driver);
-    }
-
-    @Override
-    public boolean isPageOpened() {
-        return super.isPageOpened();
     }
 
     public FrameTopBarMenu getMenu() {

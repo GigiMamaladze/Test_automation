@@ -13,7 +13,7 @@ public class DownloadManagerPage extends AbstractPage {
     @FindBy(xpath = "//*[@id='downloadButton']")
     private ExtendedWebElement downloadButton;
 
-    @FindBy(xpath = "//*[@class ='progress-label']")
+    @FindBy(css = "div.progress-label")
     private ExtendedWebElement progressBarLabel;
 
     public DownloadManagerPage(WebDriver driver) {

@@ -7,19 +7,14 @@ import org.openqa.selenium.support.FindBy;
 
 public class TooltipPage extends AbstractPage {
 
-    @FindBy(xpath = "//*[@class='resp-tabs-list ']")
-    private FrameTopBarMenu frameTopBarMenu;
+    @FindBy(css = "ul.resp-tabs-list ")
+    private FrameTopBarMenu menu;
 
     public TooltipPage(WebDriver driver) {
         super(driver);
     }
 
-    @Override
-    public boolean isPageOpened() {
-        return super.isPageOpened();
-    }
-
     public FrameTopBarMenu getMenu() {
-        return frameTopBarMenu;
+        return menu;
     }
 }

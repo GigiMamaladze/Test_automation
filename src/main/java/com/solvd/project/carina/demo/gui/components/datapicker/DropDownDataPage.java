@@ -19,10 +19,10 @@ public class DropDownDataPage extends AbstractPage {
     @FindBy(xpath = "//*[@id='ui-datepicker-div']")
     private ExtendedWebElement calendar;
 
-    @FindBy(xpath = "//*[@class='ui-datepicker-month']")
+    @FindBy(css = "select.ui-datepicker-month")
     private ExtendedWebElement monthSelector;
 
-    @FindBy(xpath = "//*[@class='ui-datepicker-year']")
+    @FindBy(css = "select.ui-datepicker-year")
     private ExtendedWebElement yearSelector;
 
     @FindBy(xpath = "//*[@class='ui-state-default'][text()='%s']")

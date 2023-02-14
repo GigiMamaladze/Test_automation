@@ -7,14 +7,14 @@ import org.openqa.selenium.support.FindBy;
 
 public class AutoCompletePage extends AbstractPage {
 
+    @FindBy(css = "ul.resp-tabs-list ")
+    private FrameTopBarMenu menu;
+
     public AutoCompletePage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(xpath = "//*[@class='resp-tabs-list ']")
-    private FrameTopBarMenu frameTopBarMenu;
-
     public FrameTopBarMenu getMenu() {
-        return frameTopBarMenu;
+        return menu;
     }
 }

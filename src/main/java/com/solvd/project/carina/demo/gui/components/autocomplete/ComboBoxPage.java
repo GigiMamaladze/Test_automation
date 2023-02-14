@@ -10,10 +10,10 @@ public class ComboBoxPage extends AbstractPage {
     @FindBy(xpath = "//*[@rel-title='ComboBox']//*[@class='demo-frame lazyloaded']")
     private ExtendedWebElement iframe;
 
-    @FindBy(xpath = "//*[@class='custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left ui-autocomplete-input']")
+    @FindBy(css = "input.custom-combobox-input")
     private ExtendedWebElement textField;
 
-    @FindBy(xpath = "//*[@class='ui-button-icon ui-icon ui-icon-triangle-1-s']")
+    @FindBy(css = "a.custom-combobox-toggle")
     private ExtendedWebElement showAllItemBtn;
 
     @FindBy(xpath = "//ul[contains(@id,'ui-id-1')]//*[text()='Java']")

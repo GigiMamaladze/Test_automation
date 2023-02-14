@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class SelectElementsPage extends AbstractPage {
 
-    @FindBy(xpath = "//*[@class='resp-tabs-list ']")
+    @FindBy(css = "ul.resp-tabs-list ")
     private FrameTopBarMenu menu;
 
     public SelectElementsPage(WebDriver driver) {
