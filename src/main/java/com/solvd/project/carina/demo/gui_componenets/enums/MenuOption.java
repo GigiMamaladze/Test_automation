@@ -1,6 +1,6 @@
 package com.solvd.project.carina.demo.gui_componenets.enums;
 
-public enum MenuOptions {
+public enum MenuOption {
 
     RANDOM_PROGRESS_BAR("Random Progress Bar"),
     COLOR_PICKER("Color Picker"),
@@ -11,11 +11,14 @@ public enum MenuOptions {
     COMBO_BOX("ComboBox"),
     SIMPLE_SPINNER("Simple Spinner"),
     DROP_DOWN_DATA_PICKER("DropDown DatePicker"),
-    MULTIPLE_LIST("Multiple Lists");
+    MULTIPLE_LIST("Multiple Lists"),
+    ACCEPTED_ELEMENTS("Accepted Elements"),
+    CHECK_EVENTS("Check Events"),
+    SPLIT_BUTTON("SplitButton");
 
     private final String menuName;
 
-    MenuOptions(String menuName) {
+    MenuOption(String menuName) {
         this.menuName = menuName;
     }
 

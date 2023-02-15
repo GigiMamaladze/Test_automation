@@ -7,6 +7,10 @@ import com.solvd.project.carina.demo.gui.components.autocomplete.CategoriesPage;
 import com.solvd.project.carina.demo.gui.components.autocomplete.ComboBoxPage;
 import com.solvd.project.carina.demo.gui.components.datapicker.DropDownDataPage;
 import com.solvd.project.carina.demo.gui.components.datapicker.SimpleDataPickerPage;
+import com.solvd.project.carina.demo.gui.components.dragdrop.AcceptedElementPage;
+import com.solvd.project.carina.demo.gui.components.dragdrop.PhotoManagerPage;
+import com.solvd.project.carina.demo.gui.components.draggablebox.CheckEventsPage;
+import com.solvd.project.carina.demo.gui.components.draggablebox.SimpleDragPage;
 import com.solvd.project.carina.demo.gui.components.progresbar.DownloadManagerPage;
 import com.solvd.project.carina.demo.gui.components.progresbar.RandomProgressPage;
 import com.solvd.project.carina.demo.gui.components.select.MultipleSelectionPage;
@@ -16,6 +20,8 @@ import com.solvd.project.carina.demo.gui.components.sorting.MultipleListsPage;
 import com.solvd.project.carina.demo.gui.components.sorting.PortletsPage;
 import com.solvd.project.carina.demo.gui.components.spinner.CurrencyPage;
 import com.solvd.project.carina.demo.gui.components.spinner.SimpleSpinnerPage;
+import com.solvd.project.carina.demo.gui.components.toolbar.SplitButtonPage;
+import com.solvd.project.carina.demo.gui.components.toolbar.ToolBarOptionsPage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipImagePage;
 import com.solvd.project.carina.demo.gui.components.tooltip.TooltipVideoPage;
 import com.solvd.project.carina.demo.gui.pages.*;
@@ -23,7 +29,6 @@ import com.solvd.project.carina.demo.gui_componenets.enums.*;
 import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectDayException;
 import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectMenuException;
 import com.solvd.project.carina.demo.gui_componenets.exceptions.IncorectYearException;
-import com.solvd.project.carina.demo.gui_componenets.exceptions.UnExceptedItemType;
 import com.solvd.project.carina.demo.gui_componenets.utils.DataFormatUtil;
 import com.zebrunner.carina.core.registrar.ownership.MethodOwner;
 import jdk.jfr.Description;
@@ -45,7 +50,7 @@ public class TestAutomation implements IAbstractTest {
         Assert.assertTrue(sliderColorPage.isFrameOpened(), "Color picker frame is not opened");
         sliderColorPage.moveSlider(color, 100);
         SliderRangePage sliderRangePage = (SliderRangePage) sliderPage.getMenu()
-                .clickOnMenuOption(MenuOptions.RANGE);
+                .clickOnMenuOption(MenuOption.RANGE);
         Assert.assertTrue(sliderRangePage.isFrameOpened(), "Range frame is not opened");
         String beforeMoveHandle = sliderRangePage.getHandlesRange();
         sliderRangePage.moveRightSlider(1000);
@@ -68,7 +73,7 @@ public class TestAutomation implements IAbstractTest {
         tooltipImagePage.hoverImage(image);
         Assert.assertEquals(tooltipImagePage.getActualToolTip(), image, "Tooltip is not displayed");
         TooltipVideoPage tooltipVideoPage = (TooltipVideoPage) tooltipPage.getMenu()
-                .clickOnMenuOption(MenuOptions.VIDEO_BASED);
+                .clickOnMenuOption(MenuOption.VIDEO_BASED);
         Assert.assertTrue(tooltipVideoPage.isFrameOpened(), "Video based frame is not opened");
         tooltipVideoPage.scrollToButtons();
         tooltipVideoPage.hoverLikeButton();
@@ -88,7 +93,7 @@ public class TestAutomation implements IAbstractTest {
         downloadManagerPage.waitForProgressDownload();
         Assert.assertEquals(downloadManagerPage.getProgressBarLabel(), "Complete!", "Downloading is not completed");
         RandomProgressPage randomProgressPage = (RandomProgressPage) progressBarPage.getMenu()
-                .clickOnMenuOption(MenuOptions.RANDOM_PROGRESS_BAR);
+                .clickOnMenuOption(MenuOption.RANDOM_PROGRESS_BAR);
         Assert.assertTrue(randomProgressPage.isFrameOpened(), "Random Progress frame is not opened");
         String indeterminatePercentage = randomProgressPage.getActualPercentage();
         randomProgressPage.clickRandomValueBtn();
@@ -123,7 +128,7 @@ public class TestAutomation implements IAbstractTest {
         simpleAccordionPage.clickSection(section);
         Assert.assertTrue(simpleAccordionPage.isSectionOpened(section), "Section is not opened");
         ResizeAccordionPage resizeAccordionPage = (ResizeAccordionPage) accordionAndTabsPage.getMenu()
-                .clickOnMenuOption(MenuOptions.RESIZE_ACCORDION);
+                .clickOnMenuOption(MenuOption.RESIZE_ACCORDION);
         Assert.assertTrue(resizeAccordionPage.isFrameOpened(), "Re-size frame is not opened");
         for (int i = 0; i < resizeAccordionPage.getSectionsCount(); i++) {
             resizeAccordionPage.clickSection(i);
@@ -144,7 +149,7 @@ public class TestAutomation implements IAbstractTest {
         categoriesPage.clickSearchedText(searchedText);
         Assert.assertEquals(categoriesPage.getPrintedText(), searchedText, "Searched text is not displayed");
         ComboBoxPage comboBoxPage = (ComboBoxPage) autoCompletePage.getMenu()
-                .clickOnMenuOption(MenuOptions.COMBO_BOX);
+                .clickOnMenuOption(MenuOption.COMBO_BOX);
         Assert.assertTrue(comboBoxPage.isFrameOpened(), "Combo box frame is not opened");
         String programingLanguage = "Java";
         comboBoxPage.clickShowAllItemBtn();
@@ -180,7 +185,7 @@ public class TestAutomation implements IAbstractTest {
         currencyPage.clickDownSpinner();
         Assert.assertEquals(initialAmount, currencyPage.getAmountDonate(), "Amount is not changed");
         SimpleSpinnerPage simpleSpinnerPage = (SimpleSpinnerPage) spinnerPage.getMenu()
-                .clickOnMenuOption(MenuOptions.SIMPLE_SPINNER);
+                .clickOnMenuOption(MenuOption.SIMPLE_SPINNER);
         Assert.assertTrue(simpleSpinnerPage.isFrameOpened(), "Simple spinner frame is not opened");
         String initialValue = simpleSpinnerPage.getSelectedValue();
         simpleSpinnerPage.clickUpSpinner();
@@ -220,7 +225,7 @@ public class TestAutomation implements IAbstractTest {
         simpleDataPickerPage.clickDay(day);
         Assert.assertEquals(simpleDataPickerPage.getActualDate(), DataFormatUtil.formatToDate(month, day, year), "Date is not correct");
         DropDownDataPage dropDownDataPage = (DropDownDataPage) dataPickerPage.getMenu()
-                .clickOnMenuOption(MenuOptions.DROP_DOWN_DATA_PICKER);
+                .clickOnMenuOption(MenuOption.DROP_DOWN_DATA_PICKER);
         Assert.assertTrue(dropDownDataPage.isFrameOpened(), "Drop down Data picker frame is not opened");
         dropDownDataPage.clickDataField();
         Assert.assertTrue(dropDownDataPage.isCalendarPresent(), "Calendar is not opened");
@@ -245,8 +250,8 @@ public class TestAutomation implements IAbstractTest {
         portletsPage.movePortlets(from, to);
         Assert.assertEquals(portletsPage.getLocationPortlet(from), target, "Portlet is not moved correctly");
         MultipleListsPage multipleListsPage = (MultipleListsPage) sortingPage.getMenu()
-                .clickOnMenuOption(MenuOptions.MULTIPLE_LIST);
-        Assert.assertTrue(multipleListsPage.isFrameOpened(), "Frame is not opened");
+                .clickOnMenuOption(MenuOption.MULTIPLE_LIST);
+        Assert.assertTrue(multipleListsPage.isFrameOpened(), "Multiple list Frame is not opened");
         for (int i = 1; i <= 5; i++) {
             Point initialWhiteItemLocation = multipleListsPage.getItemLocation(ItemType.WHITE, i);
             Point initialYellowItemLocation = multipleListsPage.getItemLocation(ItemType.YELLOW, i);
@@ -255,5 +260,83 @@ public class TestAutomation implements IAbstractTest {
             multipleListsPage.moveItemToList(i, ItemType.YELLOW, ItemList.LEFT);
             Assert.assertNotEquals(initialYellowItemLocation, multipleListsPage.getItemLocation(ItemType.YELLOW, i), "Item is not moved");
         }
+    }
+
+    @Test(groups = "Third_step")
+    @MethodOwner(owner = "Gigi")
+    public void testDragAndDrop() throws IncorectMenuException {
+        DragAndDropPage dragAndDropPage = new DragAndDropPage(getDriver());
+        dragAndDropPage.openURL("https://www.globalsqa.com/demo-site/draganddrop/");
+        Assert.assertTrue(dragAndDropPage.isPageOpened(), "Drag and drop is not opened");
+        PhotoManagerPage photoManagerPage = new PhotoManagerPage(getDriver());
+        Assert.assertTrue(photoManagerPage.isFrameOpened(), "Photo Manager page is not opened");
+        Image image = Image.HIGH_TATRAS_2;
+        photoManagerPage.moveImageToTrash(image);
+        Assert.assertTrue(photoManagerPage.isImageInTrash(image), "Image is not in trash");
+        photoManagerPage.moveImageToGallery(image);
+        Assert.assertTrue(photoManagerPage.isImageInGallery(image), "Image is not in gallery");
+        photoManagerPage.clickDeleteImage(image);
+        Assert.assertTrue(photoManagerPage.isImageInTrash(image), "Image is not in trash");
+        photoManagerPage.clickRecycleImageBtn(image);
+        Assert.assertTrue(photoManagerPage.isImageInGallery(image), "Image is not in gallery");
+        photoManagerPage.clickViewImageLargerBtn(image);
+        Assert.assertTrue(photoManagerPage.isImageDialogTitleDisplayed(image), "Image dialog title is not present");
+        AcceptedElementPage acceptedElementPage = (AcceptedElementPage) dragAndDropPage.getMenu()
+                .clickOnMenuOption(MenuOption.ACCEPTED_ELEMENTS);
+        Assert.assertTrue(acceptedElementPage.isFrameOpened(), "Accepted Element Frame is not opened");
+        acceptedElementPage.moveNonValidElementToTargetPanel();
+        Assert.assertFalse(acceptedElementPage.isElementAccepted(), "Element is accepted");
+        acceptedElementPage.moveDraggableBoxElementToTargetPanel();
+        Assert.assertTrue(acceptedElementPage.isElementAccepted(), "Element is not accepted");
+    }
+
+    @Test(groups = "Third_step")
+    @MethodOwner(owner = "Gigi")
+    public void testDraggableBoxes() throws IncorectMenuException {
+        DraggableBoxesPage draggableBoxesPage = new DraggableBoxesPage(getDriver());
+        draggableBoxesPage.openURL("https://www.globalsqa.com/demo-site/draggableboxes/");
+        Assert.assertTrue(draggableBoxesPage.isPageOpened(), "Draggable box page is not opened");
+        SimpleDragPage simpleDragPage = new SimpleDragPage(getDriver());
+        Assert.assertTrue(simpleDragPage.isFrameOpened(), "Simple Drag frame is not present");
+        Point initialLocationOfBox = simpleDragPage.getLocationOfBox();
+        simpleDragPage.moveBox(26, 13);
+        Assert.assertNotEquals(initialLocationOfBox, simpleDragPage.getLocationOfBox(), "Box is not moved");
+        CheckEventsPage checkEventsPage = (CheckEventsPage) draggableBoxesPage.getMenu()
+                .clickOnMenuOption(MenuOption.CHECK_EVENTS);
+        Assert.assertTrue(checkEventsPage.isFrameOpened(), "Check Event frame is not opened");
+        String initialDragInvolveValue = checkEventsPage.getDragInvolveValue();
+        String initialStopInvokeValue = checkEventsPage.getStopInvokeValue();
+        String initialStartInvokeValue = checkEventsPage.getStartInvokeValue();
+        checkEventsPage.moveBox(26, 13);
+        Assert.assertNotEquals(initialStartInvokeValue, checkEventsPage.getStartInvokeValue(), "Start Event is not changed");
+        Assert.assertNotEquals(initialDragInvolveValue, checkEventsPage.getDragInvolveValue(), "Drag Event is not changed");
+        Assert.assertNotEquals(initialStopInvokeValue, checkEventsPage.getStopInvokeValue(), "Stop Event is not changed");
+    }
+
+    @Test(groups = "Third_step")
+    @MethodOwner(owner = "Gigi")
+    public void testToolBar() throws IncorectMenuException {
+        ToolBarPage toolBarPage = new ToolBarPage(getDriver());
+        toolBarPage.openURL("https://www.globalsqa.com/demo-site/toolbar/");
+        Assert.assertTrue(toolBarPage.isPageOpened(), "ToolBar page is not opened");
+        ToolBarOptionsPage toolBarOptionsPage = new ToolBarOptionsPage(getDriver());
+        Assert.assertTrue(toolBarOptionsPage.isFrameOpened(), "Toolbar frame is not opened");
+        toolBarOptionsPage.clickZoomBtn();
+        ZoomPercentage zoomPercentage = ZoomPercentage.FIFTY;
+        toolBarOptionsPage.clickZoomPercentage(zoomPercentage);
+        Assert.assertTrue(toolBarOptionsPage.isZoomPercentageChanged(zoomPercentage), "Zoom percentage is not changed");
+        Assert.assertTrue(toolBarOptionsPage.isFontNameButtonPresent(), "Font name button is not present");
+        Assert.assertTrue(toolBarOptionsPage.isFontSizeButtonPresent(), "Font size button is not present");
+        Assert.assertTrue(toolBarOptionsPage.isHighLightButtonPresent(), "High Light button is not present");
+        Assert.assertTrue(toolBarOptionsPage.isColorButtonPresent(), "Color button is not present");
+        SplitButtonPage splitButtonPage = (SplitButtonPage) toolBarPage.getMenu()
+                .clickOnMenuOption(MenuOption.SPLIT_BUTTON);
+        Assert.assertTrue(splitButtonPage.isFrameOpened(), "Split button frame is not opened");
+        splitButtonPage.clickFunctionArrowBtn();
+        Function function = Function.SAVE;
+        splitButtonPage.clickFunction(function);
+        Assert.assertTrue(splitButtonPage.isFunctionPresentInOutput(function), "Function is not present in output");
+        splitButtonPage.clickRunLastOptionBtn();
+        Assert.assertTrue(splitButtonPage.isRunLastOptionPresentInOutput(), "Run las option is not present in output");
     }
 }
