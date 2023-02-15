@@ -31,10 +31,23 @@ public class CheckEventsPage extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public String[] getEventsValue() {
+    public String getStartInvokeValue() {
         driver.switchTo().frame(iframe.getElement());
-        String[] result = {startEventValue.getText(), dragEventValue.getText(),
-                eventStopValue.getText()};
+        String result = startEventValue.getText();
+        driver.switchTo().defaultContent();
+        return result;
+    }
+
+    public String getDragInvolveValue() {
+        driver.switchTo().frame(iframe.getElement());
+        String result = dragEventValue.getText();
+        driver.switchTo().defaultContent();
+        return result;
+    }
+
+    public String getStopInvokeValue() {
+        driver.switchTo().frame(iframe.getElement());
+        String result = eventStopValue.getText();
         driver.switchTo().defaultContent();
         return result;
     }

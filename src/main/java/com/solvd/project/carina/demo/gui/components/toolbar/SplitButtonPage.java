@@ -12,16 +12,19 @@ public class SplitButtonPage extends AbstractPage {
     private ExtendedWebElement iframe;
 
     @FindBy(xpath = "//*[@id = 'ui-id-1-button']")
-    private ExtendedWebElement functionListButton;
+    private ExtendedWebElement functionArrowButton;
 
     @FindBy(xpath = "//*[@class = 'ui-menu-item']//*[text() = '%s']")
-    private ExtendedWebElement functionsList;
+    private ExtendedWebElement functionInList;
 
     @FindBy(xpath = "//button[text() = 'Run last option']")
     private ExtendedWebElement runLastOptionBtn;
 
     @FindBy(xpath = "//*[@class = 'output']/li[text()='%s']")
     private ExtendedWebElement output;
+
+    @FindBy(xpath = "//*[@class = 'output']/li[text()='Running Last Action...']")
+    private ExtendedWebElement runningLastOptionMessage;
 
     public SplitButtonPage(WebDriver driver) {
         super(driver);
@@ -31,15 +34,15 @@ public class SplitButtonPage extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public void clickFunctionListBtn() {
+    public void clickFunctionArrowBtn() {
         driver.switchTo().frame(iframe.getElement());
-        functionListButton.click();
+        functionArrowButton.click();
         driver.switchTo().defaultContent();
     }
 
     public void clickFunction(Function function) {
         driver.switchTo().frame(iframe.getElement());
-        functionsList.format(function.getFunction()).click();
+        functionInList.format(function.getFunction()).click();
         driver.switchTo().defaultContent();
     }
 
@@ -58,7 +61,7 @@ public class SplitButtonPage extends AbstractPage {
 
     public boolean isRunLastOptionPresentInOutput() {
         driver.switchTo().frame(iframe.getElement());
-        boolean result = output.format("Running Last Action...").isElementPresent();
+        boolean result = runningLastOptionMessage.isElementPresent();
         driver.switchTo().defaultContent();
         return result;
     }

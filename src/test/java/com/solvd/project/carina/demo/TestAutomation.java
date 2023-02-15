@@ -284,10 +284,10 @@ public class TestAutomation implements IAbstractTest {
         AcceptedElementPage acceptedElementPage = (AcceptedElementPage) dragAndDropPage.getMenu()
                 .clickOnMenuOption(MenuOption.ACCEPTED_ELEMENTS);
         Assert.assertTrue(acceptedElementPage.isFrameOpened(), "Accepted Element Frame is not opened");
-        acceptedElementPage.moveSimpleElementToTargetPanel();
-        Assert.assertFalse(acceptedElementPage.didPanelAcceptedElement(), "Element is accepted");
-        acceptedElementPage.moveUniversalElementToTargetPanel();
-        Assert.assertTrue(acceptedElementPage.didPanelAcceptedElement(), "Element is not accepted");
+        acceptedElementPage.moveNonValidElementToTargetPanel();
+        Assert.assertFalse(acceptedElementPage.isElementAccepted(), "Element is accepted");
+        acceptedElementPage.moveDraggableBoxElementToTargetPanel();
+        Assert.assertTrue(acceptedElementPage.isElementAccepted(), "Element is not accepted");
     }
 
     @Test(groups = "Third_step")
@@ -304,9 +304,13 @@ public class TestAutomation implements IAbstractTest {
         CheckEventsPage checkEventsPage = (CheckEventsPage) draggableBoxesPage.getMenu()
                 .clickOnMenuOption(MenuOption.CHECK_EVENTS);
         Assert.assertTrue(checkEventsPage.isFrameOpened(), "Check Event frame is not opened");
-        String[] initialEventsValue = checkEventsPage.getEventsValue();
+        String initialDragInvolveValue = checkEventsPage.getDragInvolveValue();
+        String initialStopInvokeValue = checkEventsPage.getStopInvokeValue();
+        String initialStartInvokeValue = checkEventsPage.getStartInvokeValue();
         checkEventsPage.moveBox(26, 13);
-        Assert.assertNotEquals(initialEventsValue, checkEventsPage.getEventsValue(), "Events is not changed");
+        Assert.assertNotEquals(initialStartInvokeValue, checkEventsPage.getStartInvokeValue(), "Start Event is not changed");
+        Assert.assertNotEquals(initialDragInvolveValue, checkEventsPage.getDragInvolveValue(), "Drag Event is not changed");
+        Assert.assertNotEquals(initialStopInvokeValue, checkEventsPage.getStopInvokeValue(), "Stop Event is not changed");
     }
 
     @Test(groups = "Third_step")
@@ -328,9 +332,9 @@ public class TestAutomation implements IAbstractTest {
         SplitButtonPage splitButtonPage = (SplitButtonPage) toolBarPage.getMenu()
                 .clickOnMenuOption(MenuOption.SPLIT_BUTTON);
         Assert.assertTrue(splitButtonPage.isFrameOpened(), "Split button frame is not opened");
-        splitButtonPage.clickFunctionListBtn();
+        splitButtonPage.clickFunctionArrowBtn();
         Function function = Function.SAVE;
-        splitButtonPage.clickFunction(Function.SAVE);
+        splitButtonPage.clickFunction(function);
         Assert.assertTrue(splitButtonPage.isFunctionPresentInOutput(function), "Function is not present in output");
         splitButtonPage.clickRunLastOptionBtn();
         Assert.assertTrue(splitButtonPage.isRunLastOptionPresentInOutput(), "Run las option is not present in output");

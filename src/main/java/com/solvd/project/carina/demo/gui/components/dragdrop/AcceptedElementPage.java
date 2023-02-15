@@ -11,10 +11,10 @@ public class AcceptedElementPage extends AbstractPage {
     private ExtendedWebElement iframe;
 
     @FindBy(xpath = "//*[@id = 'draggable-nonvalid']")
-    private ExtendedWebElement simpleElement;
+    private ExtendedWebElement nonValidBoxElement;
 
     @FindBy(xpath = "//*[@id = 'draggable']")
-    private ExtendedWebElement universalElement;
+    private ExtendedWebElement draggableBoxElement;
 
     @FindBy(xpath = "//*[@id = 'droppable']")
     private ExtendedWebElement targetPanel;
@@ -27,19 +27,19 @@ public class AcceptedElementPage extends AbstractPage {
         return iframe.isElementPresent();
     }
 
-    public void moveSimpleElementToTargetPanel() {
+    public void moveNonValidElementToTargetPanel() {
         driver.switchTo().frame(iframe.getElement());
-        dragAndDrop(simpleElement, targetPanel);
+        dragAndDrop(nonValidBoxElement, targetPanel);
         driver.switchTo().defaultContent();
     }
 
-    public void moveUniversalElementToTargetPanel() {
+    public void moveDraggableBoxElementToTargetPanel() {
         driver.switchTo().frame(iframe.getElement());
-        dragAndDrop(universalElement, targetPanel);
+        dragAndDrop(draggableBoxElement, targetPanel);
         driver.switchTo().defaultContent();
     }
 
-    public boolean didPanelAcceptedElement() {
+    public boolean isElementAccepted() {
         driver.switchTo().frame(iframe.getElement());
         boolean result = targetPanel != null && targetPanel.getAttribute("class").contains("highlight");
         driver.switchTo().defaultContent();
